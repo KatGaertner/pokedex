@@ -17,14 +17,25 @@ const pokemonRepo = (function () {
         }
     ];
 
+    let pokemonKeys = Object.keys(pokemonList[0]);
+
     function add(pokemon) {
-        pokemonList.push(pokemon);
+        if (
+            (Object.keys(pokemon).length === pokemonKeys.length) &&
+            (Object.keys(pokemon).every((key) => pokemonKeys.includes(key)))
+        ) {
+            pokemonList.push(pokemon);
+            console.log('added pokemon')
+        }
+        else {
+            console.log('wrong data format')
+        };
     };
-    
+
     function getAll() {
         return pokemonList;
     };
-    
+
     return {
         add: add,
         getAll: getAll
