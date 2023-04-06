@@ -16,14 +16,12 @@ const pokemonList = [
     }
 ];
 
-const noteText = ' - Wow, that\'s big!'
-
 function checkHeight(pokemon) {
-    let note = '';
     if (pokemon.height > 1.0) {
-        note = noteText;
-    };
-    return note;
+        return ' - Wow, that\'s big!';
+    } else {
+        return '';
+    }
 }
 
 function displayPokemon(pokemon) {
