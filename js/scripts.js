@@ -14,6 +14,11 @@ const pokemonRepo = (function () {
             name: 'Venusaur',
             height: 2.0,
             types: ['grass', 'poison']
+        },
+        {
+            name: 'Squirtle',
+            height: 0.5,
+            types: ['water']
         }
     ];
 
