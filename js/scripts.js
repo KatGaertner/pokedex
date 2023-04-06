@@ -41,9 +41,18 @@ const pokemonRepo = (function () {
         return pokemonList;
     };
 
+    function search(key, value) {
+        if (typeof value === 'string') {
+            return pokemonList.filter( pokemon => pokemon[key].includes(value) );
+        } else {
+            return pokemonList.filter( pokemon => pokemon[key] == value );
+        }
+    };
+
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        search: search
     };
 })();
 
