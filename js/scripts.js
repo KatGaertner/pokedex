@@ -18,10 +18,17 @@ const pokemonList = [
 
 const noteText = ' - Wow, that\'s big!'
 
-for (let i = 0; i < pokemonList.length; i++) {
+function checkHeight(pokemon) {
     let note = '';
-    if (pokemonList[i].height > 1.0) {
+    if (pokemon.height > 1.0) {
         note = noteText;
-    }
-    document.write(pokemonList[i].name + ', height: ' + pokemonList[i].height + note + "<br>");
-};
+    };
+    return note;
+}
+
+function displayPokemon(pokemon) {
+    let note = checkHeight(pokemon);
+    document.write(pokemon.name + ', height: ' + pokemon.height + note + "<br>");
+}
+
+pokemonList.forEach(displayPokemon); 
