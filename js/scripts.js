@@ -60,4 +60,22 @@ function displayPokemon(pokemon) {
     document.write(`${pokemon.name}, height: ${pokemon.height}, type: ${pokemon.types} <br>`);
 }
 
+document.write('<i> In Pokedex: </i> <br>');
 pokemonRepo.getAll().forEach(displayPokemon); 
+document.write('<br> <i> Adding a new pokemon in wrong format... </i> <br>');
+pokemonRepo.add('apple');
+pokemonRepo.add({name:'Pokaymon', height:1});
+pokemonRepo.add({name:'Pokaymon', height:1, typos:['normal']});
+pokemonRepo.add({name:'Pokaymon', height:1, types:['normal'], attacks:['bite']});
+document.write('<i> In Pokedex: </i> <br>');
+pokemonRepo.getAll().forEach(displayPokemon);
+document.write('<br> <i> Adding a new pokemon in right format... </i> <br>');
+pokemonRepo.add({name:'Pokaymon', height:1, types:'normal'});
+document.write('<i> In Pokedex: </i> <br>');
+pokemonRepo.getAll().forEach(displayPokemon);
+document.write('<br> <i> Search for name "saur" </i> <br>');
+pokemonRepo.search('name', 'saur').forEach(displayPokemon);
+document.write('<br> <i> Search for type "normal" </i> <br>');
+pokemonRepo.search('types', 'normal').forEach(displayPokemon);
+document.write('<br> <i> Search for height 2 </i> <br>');
+pokemonRepo.search('height', 2).forEach(displayPokemon);
