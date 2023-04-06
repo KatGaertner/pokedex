@@ -67,7 +67,7 @@ function checkHeight(pokemon) {
 
 function displayPokemon(pokemon) {
     let note = checkHeight(pokemon);
-    document.write(pokemon.name + ', height: ' + pokemon.height + note + "<br>");
+    document.write(`${pokemon.name}, height: ${pokemon.height}, type: ${pokemon.types} <br>`);
 }
 
 pokemonRepo.getAll().forEach(displayPokemon); 
