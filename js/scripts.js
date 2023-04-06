@@ -1,20 +1,36 @@
-const pokemonList = [
-    {
-        name: 'Bulbasaur',
-        height: 0.7,
-        types: ['grass', 'poison']
-    },
-    {
-        name: 'Ivysaur',
-        height: 1.0,
-        types: ['grass', 'poison']
-    },
-    {
-        name: 'Venusaur',
-        height: 2.0,
-        types: ['grass', 'poison']
-    }
-];
+const pokemonRepo = (function () {
+    const pokemonList = [
+        {
+            name: 'Bulbasaur',
+            height: 0.7,
+            types: ['grass', 'poison']
+        },
+        {
+            name: 'Ivysaur',
+            height: 1.0,
+            types: ['grass', 'poison']
+        },
+        {
+            name: 'Venusaur',
+            height: 2.0,
+            types: ['grass', 'poison']
+        }
+    ];
+
+    function add(pokemon) {
+        pokemonList.push(pokemon);
+    };
+    
+    function getAll() {
+        return pokemonList;
+    };
+    
+    return {
+        add: add,
+        getAll: getAll
+    };
+})();
+
 
 function checkHeight(pokemon) {
     if (pokemon.height > 1.0) {
@@ -29,4 +45,4 @@ function displayPokemon(pokemon) {
     document.write(pokemon.name + ', height: ' + pokemon.height + note + "<br>");
 }
 
-pokemonList.forEach(displayPokemon); 
+pokemonRepo.getAll().forEach(displayPokemon); 
