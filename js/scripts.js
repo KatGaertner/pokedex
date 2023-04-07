@@ -75,22 +75,4 @@ function display(array) {
     );
 }
 
-document.write('<i> In Pokedex: </i> <br>');
 display(pokemonRepo.getAll()); 
-document.write('<br> <i> Adding a new pokemon in wrong format... </i> <br>');
-pokemonRepo.add('apple');
-pokemonRepo.add({name:'Pokaymon', height:1});
-pokemonRepo.add({name:'Pokaymon', height:1, typos:['normal']});
-pokemonRepo.add({name:'Pokaymon', height:1, types:['normal'], attacks:['bite']});
-document.write('<i> In Pokedex: </i> <br>');
-display(pokemonRepo.getAll());
-document.write('<br> <i> Adding a new pokemon in right format... </i> <br>');
-pokemonRepo.add({name:'Pokaymon', height:1, types:'normal'});
-document.write('<i> In Pokedex: </i> <br>');
-display(pokemonRepo.getAll());
-document.write('<br> <i> Search for name "saur" </i> <br>');
-display(pokemonRepo.search('name', 'saur'));
-document.write('<br> <i> Search for type "normal" </i> <br>');
-display(pokemonRepo.search('types', 'normal'));
-document.write('<br> <i> Search for height 2 </i> <br>');
-display(pokemonRepo.search('height', 2));
