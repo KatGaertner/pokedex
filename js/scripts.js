@@ -49,16 +49,30 @@ const pokemonRepo = (function () {
         }
     };
 
+    function addListItem(pokemon) {
+        let ul = document.getElementById('pokemon-list');
+        let li = document.createElement('li');
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+        button.classList.add('pokemon-list__item');
+        li.appendChild(button);
+        ul.appendChild(li);
+    };
+
     return {
         add: add,
         getAll: getAll,
-        search: search
+        search: search,
+        addListItem:addListItem
     };
 })();
 
 function display(array) {
-    array.forEach( pokemon =>
-        document.write(`${pokemon.name}, height: ${pokemon.height}, type: ${pokemon.types} <br>`));
+    
+    array.forEach( function(pokemon) {
+        pokemonRepo.addListItem(pokemon)
+        }
+    );
 }
 
 document.write('<i> In Pokedex: </i> <br>');
