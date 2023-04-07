@@ -72,13 +72,20 @@ const pokemonRepo = (function () {
         button.classList.add('pokemon-list__item');
         li.appendChild(button);
         ul.appendChild(li);
+
+        button.addEventListener('click', () => showDetails(pokemon));
     };
+
+    function showDetails(pokemon) {
+        console.log(pokemon.name, pokemon.height, pokemon.types);
+    }
 
     return {
         add: add,
         getAll: getAll,
         search: search,
-        addListItem:addListItem
+        addListItem:addListItem,
+        showDetails: showDetails
     };
 })();
 
