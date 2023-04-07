@@ -22,20 +22,27 @@ const pokemonRepo = (function () {
         }
     ];
 
+    function add(pokemon) {
+        if (validatePokemon(pokemon)) {
+            pokemonList.push(pokemon);
+            console.log('added pokemon')
+        }
+    };
+
     let pokemonKeys = Object.keys(pokemonList[0]);
 
-    function add(pokemon) {
+    function validatePokemon(pokemon) {
         if (
             (Object.keys(pokemon).length === pokemonKeys.length) &&
             (Object.keys(pokemon).every((key) => pokemonKeys.includes(key)))
         ) {
-            pokemonList.push(pokemon);
-            console.log('added pokemon')
+            return true
         }
         else {
-            console.log('wrong data format')
+            console.error('wrong data format')
+            return false
         };
-    };
+    }
 
     function getAll() {
         return pokemonList;
