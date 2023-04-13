@@ -1,41 +1,20 @@
 const pokemonRepo = (function () {
-    const pokemonList = [
-        {
-            name: 'Bulbasaur',
-            height: 0.7,
-            types: ['grass', 'poison']
-        },
-        {
-            name: 'Ivysaur',
-            height: 1.0,
-            types: ['grass', 'poison']
-        },
-        {
-            name: 'Venusaur',
-            height: 2.0,
-            types: ['grass', 'poison']
-        },
-        {
-            name: 'Charmander',
-            height: 0.6,
-            types: ['fire']
-        },
-        {
-            name: 'Charmeleon',
-            height: 1.1,
-            types: ['fire']
-        },
-        {
-            name: 'Charizard',
-            height: 1.7,
-            types: ['fire','flying']
-        },
-        {
-            name: 'Squirtle',
-            height: 0.5,
-            types: ['water']
-        }
-    ];
+    const pokemonList = [];
+    const apiUrl= 'https://pokeapi.co/api/v2/pokemon/?limit=9'
+
+    function loadList() {
+        return fetch(apiUrl).then((response) => response.json())
+            .then((data) => {
+                data.results.forEach((item) => {
+                    let pokemon = {
+                        name: item.name,
+                        detailsUrl: item.url
+                    }
+                    pokemonList.push(pokemon); // instead of add, because I can't validate when initializing
+                })
+            })
+            .catch((error) => console.error(error))
+    }
 
     function add(pokemon) {
         if (validatePokemon(pokemon)) {
@@ -44,9 +23,8 @@ const pokemonRepo = (function () {
         }
     };
 
-    let pokemonKeys = Object.keys(pokemonList[0]);
-
     function validatePokemon(pokemon) {
+        let pokemonKeys = Object.keys(pokemonList[0]);
         if (
             (Object.keys(pokemon).length === pokemonKeys.length) &&
             (Object.keys(pokemon).every((key) => pokemonKeys.includes(key)))
@@ -92,7 +70,8 @@ const pokemonRepo = (function () {
         getAll: getAll,
         search: search,
         addListItem:addListItem,
-        showDetails: showDetails
+        showDetails: showDetails,
+        loadList: loadList
     };
 })();
 
@@ -104,4 +83,5 @@ function display(array) {
     );
 }
 
-display(pokemonRepo.getAll()); 
+pokemonRepo.loadList()
+    .then(() => display(pokemonRepo.getAll()));
