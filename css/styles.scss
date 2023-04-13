@@ -43,7 +43,7 @@ body {
     background-color: $background-color;
     font-family: 'Rubik', sans-serif;
     font-size: 110%;
-    padding: 3%;
+    padding: 0 3% 3%;
 }
 
 .page-header {
@@ -53,6 +53,10 @@ body {
     justify-content: space-between;
     margin: 0 $universal-margin;
     border-bottom: 2px solid black;
+    background-color: $background-color;
+    position: sticky;
+    top: 0;
+    padding-top: 2vh;
 }
 
 #search-icon {
