@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url('../fonts/rubik-latin-400-normal.woff2') format('woff2'),
+        url('../fonts/rubik-latin-400-normal.woff') format('woff'),
+        url('../fonts/rubik-latin-400-normal.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('../fonts/rubik-latin-700-normal.woff2') format('woff2'),
+        url('../fonts/rubik-latin-700-normal.woff') format('woff'),
+        url('../fonts/rubik-latin-700-normal.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+$background-color: #eee;
+$text-color: black;
+$box-color: white;
+$universal-margin: 0.4rem;
+$block-border-radius: 0.4rem;
+$box-padding: 1em;
+
+
+
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: $background-color;
+    font-family: 'Rubik', sans-serif;
+    font-size: 110%;
+    padding: 3%;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 $universal-margin;
+    border-bottom: 2px solid black;
+}
+
+#search-icon {
+    height: 1.5em;
+    margin-top: 10%;
+}
+
+h1 {
+    font-size: 200%;
+    margin: 0.5em 0;
+    letter-spacing: -0.1rem;
+}
+
+#pokemon-list {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+
+    li {
+        margin: $universal-margin;
+    }
+}
+
+.pokemon-list__item {
+    width: 100%;
+    height: 4em;
+    color: $text-color;
+    background-color: $box-color;
+    border: none;
+    border-radius: $block-border-radius;
+    padding: $box-padding;
+}
+
+
+
+
+/* fix for scrollbar messing up the centering */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter */
+html {
+    overflow-y: scroll;
+}
+
+@supports (scrollbar-gutter: stable) {
+    html {
+        overflow-y: auto;
+        scrollbar-gutter: stable both-edges;
+    }
+}

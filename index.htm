@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Pokedex</title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="js/scripts.js"></script>
-  </body>
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+  <title>Pokedex</title>
+</head>
+
+<body>
+
+  <div class="page-container">
+    <div class="content-wrap">
+      <header class="page-header">
+        <span>
+          <h1>Pokedex</h1>
+        </span>
+        <span>
+          <img src="img/search.svg" id="search-icon" role="search">
+        </span>
+      </header>
+
+      <main>
+        <ul id="pokemon-list">
+
+        </ul>
+      </main>
+    </div>
+  </div>
+  <script src="js/scripts.js"></script>
+</body>
+
 </html>

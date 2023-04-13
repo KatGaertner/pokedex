@@ -16,6 +16,21 @@ const pokemonRepo = (function () {
             types: ['grass', 'poison']
         },
         {
+            name: 'Charmander',
+            height: 0.6,
+            types: ['fire']
+        },
+        {
+            name: 'Charmeleon',
+            height: 1.1,
+            types: ['fire']
+        },
+        {
+            name: 'Charizard',
+            height: 1.7,
+            types: ['fire','flying']
+        },
+        {
             name: 'Squirtle',
             height: 0.5,
             types: ['water']
@@ -56,34 +71,37 @@ const pokemonRepo = (function () {
         }
     };
 
+    function addListItem(pokemon) {
+        let ul = document.getElementById('pokemon-list');
+        let li = document.createElement('li');
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+        button.classList.add('pokemon-list__item');
+        li.appendChild(button);
+        ul.appendChild(li);
+
+        button.addEventListener('click', () => showDetails(pokemon));
+    };
+
+    function showDetails(pokemon) {
+        console.log(pokemon.name, pokemon.height, pokemon.types);
+    }
+
     return {
         add: add,
         getAll: getAll,
-        search: search
+        search: search,
+        addListItem:addListItem,
+        showDetails: showDetails
     };
 })();
 
 function display(array) {
-    array.forEach( pokemon =>
-        document.write(`${pokemon.name}, height: ${pokemon.height}, type: ${pokemon.types} <br>`));
+    
+    array.forEach( function(pokemon) {
+        pokemonRepo.addListItem(pokemon)
+        }
+    );
 }
 
-document.write('<i> In Pokedex: </i> <br>');
 display(pokemonRepo.getAll()); 
-document.write('<br> <i> Adding a new pokemon in wrong format... </i> <br>');
-pokemonRepo.add('apple');
-pokemonRepo.add({name:'Pokaymon', height:1});
-pokemonRepo.add({name:'Pokaymon', height:1, typos:['normal']});
-pokemonRepo.add({name:'Pokaymon', height:1, types:['normal'], attacks:['bite']});
-document.write('<i> In Pokedex: </i> <br>');
-display(pokemonRepo.getAll());
-document.write('<br> <i> Adding a new pokemon in right format... </i> <br>');
-pokemonRepo.add({name:'Pokaymon', height:1, types:'normal'});
-document.write('<i> In Pokedex: </i> <br>');
-display(pokemonRepo.getAll());
-document.write('<br> <i> Search for name "saur" </i> <br>');
-display(pokemonRepo.search('name', 'saur'));
-document.write('<br> <i> Search for type "normal" </i> <br>');
-display(pokemonRepo.search('types', 'normal'));
-document.write('<br> <i> Search for height 2 </i> <br>');
-display(pokemonRepo.search('height', 2));

@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/rubik-latin-400-normal.woff2") format("woff2"), url("../fonts/rubik-latin-400-normal.woff") format("woff"), url("../fonts/rubik-latin-400-normal.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/rubik-latin-700-normal.woff2") format("woff2"), url("../fonts/rubik-latin-700-normal.woff") format("woff"), url("../fonts/rubik-latin-700-normal.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #eee;
+  font-family: "Rubik", sans-serif;
+  font-size: 110%;
+  padding: 3%;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0.4rem;
+  border-bottom: 2px solid black;
+}
+
+#search-icon {
+  height: 1.5em;
+  margin-top: 10%;
+}
+
+h1 {
+  font-size: 200%;
+  margin: 0.5em 0;
+  letter-spacing: -0.1rem;
+}
+
+#pokemon-list {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+}
+#pokemon-list li {
+  margin: 0.4rem;
+}
+
+.pokemon-list__item {
+  width: 100%;
+  height: 4em;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 1em;
+}
+
+/* fix for scrollbar messing up the centering */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter */
+html {
+  overflow-y: scroll;
+}
+
+@supports (scrollbar-gutter: stable) {
+  html {
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+  }
+}/*# sourceMappingURL=styles.css.map */
