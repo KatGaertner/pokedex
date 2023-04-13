@@ -16,6 +16,17 @@ const pokemonRepo = (function () {
             .catch((error) => console.error(error))
     }
 
+    function loadDetails(pokemon) {
+        return fetch(pokemon.detailsUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                pokemon.imageUrl = data.sprites.front_default;
+                pokemon.height = data.height;
+                pokemon.types = data.types;
+            })
+            .catch((error) => console.error(error))
+    }
+
     function add(pokemon) {
         if (validatePokemon(pokemon)) {
             pokemonList.push(pokemon);
@@ -62,7 +73,8 @@ const pokemonRepo = (function () {
     };
 
     function showDetails(pokemon) {
-        console.log(pokemon.name, pokemon.height, pokemon.types);
+        loadDetails(pokemon)
+            .then(() => console.log(pokemon));
     }
 
     return {
@@ -71,7 +83,8 @@ const pokemonRepo = (function () {
         search: search,
         addListItem:addListItem,
         showDetails: showDetails,
-        loadList: loadList
+        loadList: loadList,
+        loadDetails: loadDetails
     };
 })();
 
