@@ -1,8 +1,9 @@
 const pokemonRepo = (function () {
     const pokemonList = [];
-    const apiUrl= 'https://pokeapi.co/api/v2/pokemon/?limit=9'
+    const apiUrl= 'https://pokeapi.co/api/v2/pokemon/?limit=251'
 
     function loadList() {
+        showLoadingMessage();
         return fetch(apiUrl).then((response) => response.json())
             .then((data) => {
                 data.results.forEach((item) => {
@@ -12,19 +13,28 @@ const pokemonRepo = (function () {
                     }
                     pokemonList.push(pokemon); // instead of add, because I can't validate when initializing
                 })
+                hideLoadingMessage();
             })
-            .catch((error) => console.error(error))
+            .catch((error) => {
+                console.error(error);
+                hideLoadingMessage();
+            })
     }
 
     function loadDetails(pokemon) {
+        showLoadingMessage();
         return fetch(pokemon.detailsUrl)
             .then((response) => response.json())
             .then((data) => {
                 pokemon.imageUrl = data.sprites.front_default;
                 pokemon.height = data.height;
                 pokemon.types = data.types;
+                hideLoadingMessage();
             })
-            .catch((error) => console.error(error))
+            .catch((error) => {
+                console.error(error);
+                hideLoadingMessage();
+            })
     }
 
     function add(pokemon) {
@@ -77,6 +87,16 @@ const pokemonRepo = (function () {
             .then(() => console.log(pokemon));
     }
 
+    function hideLoadingMessage() {
+        let elem = document.getElementById('loading-message');
+        elem.classList.add('hidden');
+    }
+
+    function showLoadingMessage() {
+        let elem = document.getElementById('loading-message');
+        elem.classList.remove('hidden');
+    }
+
     return {
         add: add,
         getAll: getAll,
@@ -84,7 +104,9 @@ const pokemonRepo = (function () {
         addListItem:addListItem,
         showDetails: showDetails,
         loadList: loadList,
-        loadDetails: loadDetails
+        loadDetails: loadDetails,
+        hideLoadingMessage: hideLoadingMessage,
+        showLoadingMessage: showLoadingMessage
     };
 })();
 

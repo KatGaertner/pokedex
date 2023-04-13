@@ -49,11 +49,22 @@ h1 {
   letter-spacing: -0.1rem;
 }
 
+#loading-message {
+  font-weight: 700;
+  -webkit-animation: 1s loading infinite alternate ease-out;
+          animation: 1s loading infinite alternate ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
 #pokemon-list {
   list-style-type: none;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+  margin: 0.4rem 0 0 0;
 }
 #pokemon-list li {
   margin: 0.4rem;
@@ -69,6 +80,23 @@ h1 {
   padding: 1em;
 }
 
+@-webkit-keyframes loading {
+  0% {
+    color: #999;
+  }
+  100% {
+    color: black;
+  }
+}
+
+@keyframes loading {
+  0% {
+    color: #999;
+  }
+  100% {
+    color: black;
+  }
+}
 /* fix for scrollbar messing up the centering */
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter */
 html {

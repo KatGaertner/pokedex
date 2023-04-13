@@ -66,12 +66,21 @@ h1 {
     letter-spacing: -0.1rem;
 }
 
+#loading-message {
+    font-weight: 700;
+    animation: 1s loading infinite alternate ease-out;
+}
+
+.hidden {
+    display: none;
+}
+
 #pokemon-list {
     list-style-type: none;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
-
+    margin: $universal-margin 0 0 0;
     li {
         margin: $universal-margin;
     }
@@ -87,7 +96,15 @@ h1 {
     padding: $box-padding;
 }
 
-
+// lil loading animation
+@keyframes loading {
+    0% {
+        color: #999;
+    }
+    100% {
+        color: $text-color;
+    }
+}
 
 
 /* fix for scrollbar messing up the centering */
