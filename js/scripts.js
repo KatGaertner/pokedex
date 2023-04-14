@@ -2,17 +2,25 @@ const pokemonRepo = (function () {
     const pokemonList = [];
     const apiUrl= 'https://pokeapi.co/api/v2/pokemon/?limit=251'
 
+    function parsePokemon(item) {
+        pokemon = {
+            name: item.name,
+            detailsUrl: item.url
+        }
+        pokemonList.push(pokemon); // instead of add, because I can't validate when initializing
+    }
+
+    function parseDetails(data, pokemon) {
+        pokemon.imageUrl = data.sprites.front_default;
+        pokemon.height = data.height;
+        pokemon.types = data.types;
+    }
+
     function loadList() {
         showLoadingMessage();
         return fetch(apiUrl).then((response) => response.json())
             .then((data) => {
-                data.results.forEach((item) => {
-                    let pokemon = {
-                        name: item.name,
-                        detailsUrl: item.url
-                    }
-                    pokemonList.push(pokemon); // instead of add, because I can't validate when initializing
-                })
+                data.results.forEach((item) => parsePokemon(item))
                 hideLoadingMessage();
             })
             .catch((error) => {
@@ -26,9 +34,7 @@ const pokemonRepo = (function () {
         return fetch(pokemon.detailsUrl)
             .then((response) => response.json())
             .then((data) => {
-                pokemon.imageUrl = data.sprites.front_default;
-                pokemon.height = data.height;
-                pokemon.types = data.types;
+                parseDetails(data, pokemon);
                 hideLoadingMessage();
             })
             .catch((error) => {
