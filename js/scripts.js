@@ -1,12 +1,12 @@
-const pokemonRepo = (function () {
+const pokemonRepo = (function() {
     const pokemonList = [];
-    const apiUrl= 'https://pokeapi.co/api/v2/pokemon/?limit=251'
+    const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=251';
 
     function parsePokemon(item) {
-        pokemon = {
+        let pokemon = {
             name: item.name,
             detailsUrl: item.url
-        }
+        };
         add(pokemon);
     }
 
@@ -20,13 +20,13 @@ const pokemonRepo = (function () {
         showLoadingMessage();
         return fetch(apiUrl).then((response) => response.json())
             .then((data) => {
-                data.results.forEach((item) => parsePokemon(item))
+                data.results.forEach((item) => parsePokemon(item));
                 hideLoadingMessage();
             })
             .catch((error) => {
                 console.error(error);
                 hideLoadingMessage();
-            })
+            });
     }
 
     function loadDetails(pokemon) {
@@ -40,25 +40,25 @@ const pokemonRepo = (function () {
             .catch((error) => {
                 console.error(error);
                 hideLoadingMessage();
-            })
+            });
     }
 
     function add(pokemon) {
-            pokemonList.push(pokemon);
-            console.log('added pokemon')
-    };
+        pokemonList.push(pokemon);
+        console.log('added pokemon');
+    }
 
     function getAll() {
         return pokemonList;
-    };
+    }
 
     function search(key, value) {
         if (typeof value === 'string') {
-            return pokemonList.filter( pokemon => pokemon[key].includes(value) );
+            return pokemonList.filter((pokemon) => pokemon[key].includes(value));
         } else {
-            return pokemonList.filter( pokemon => pokemon[key] == value );
+            return pokemonList.filter((pokemon) => pokemon[key] === value);
         }
-    };
+    }
 
     function addListItem(pokemon) {
         let ul = document.getElementById('pokemon-list');
@@ -70,7 +70,11 @@ const pokemonRepo = (function () {
         ul.appendChild(li);
 
         button.addEventListener('click', () => showDetails(pokemon));
-    };
+    }
+
+    function display(pokemons) {
+        pokemons.forEach((pokemon) => addListItem(pokemon));
+    }
 
     function showDetails(pokemon) {
         loadDetails(pokemon)
@@ -92,6 +96,7 @@ const pokemonRepo = (function () {
         getAll: getAll,
         search: search,
         addListItem:addListItem,
+        display: display,
         showDetails: showDetails,
         loadList: loadList,
         loadDetails: loadDetails,
@@ -100,13 +105,5 @@ const pokemonRepo = (function () {
     };
 })();
 
-function display(array) {
-    
-    array.forEach( function(pokemon) {
-        pokemonRepo.addListItem(pokemon)
-        }
-    );
-}
-
 pokemonRepo.loadList()
-    .then(() => display(pokemonRepo.getAll()));
+    .then(() => pokemonRepo.display(pokemonRepo.getAll()));
