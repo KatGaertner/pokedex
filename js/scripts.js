@@ -13,7 +13,7 @@ const pokemonRepo = (function () {
     function parseDetails(data, pokemon) {
         pokemon.imageUrl = data.sprites.front_default;
         pokemon.height = data.height;
-        pokemon.types = data.types;
+        pokemon.types = Object.values(data.types).map((x) => x.type.name);
     }
 
     function loadList() {
