@@ -7,7 +7,7 @@ const pokemonRepo = (function () {
             name: item.name,
             detailsUrl: item.url
         }
-        pokemonList.push(pokemon); // instead of add, because I can't validate when initializing
+        add(pokemon);
     }
 
     function parseDetails(data, pokemon) {
@@ -44,25 +44,9 @@ const pokemonRepo = (function () {
     }
 
     function add(pokemon) {
-        if (validatePokemon(pokemon)) {
             pokemonList.push(pokemon);
             console.log('added pokemon')
-        }
     };
-
-    function validatePokemon(pokemon) {
-        let pokemonKeys = Object.keys(pokemonList[0]);
-        if (
-            (Object.keys(pokemon).length === pokemonKeys.length) &&
-            (Object.keys(pokemon).every((key) => pokemonKeys.includes(key)))
-        ) {
-            return true
-        }
-        else {
-            console.error('wrong data format')
-            return false
-        };
-    }
 
     function getAll() {
         return pokemonList;
