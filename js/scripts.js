@@ -13,7 +13,7 @@ const pokemonRepo = (function() {
     function parseDetails(data, pokemon) {
         pokemon.imageUrl = data.sprites.front_default;
         pokemon.height = data.height;
-        pokemon.types = Object.values(data.types).map((x) => x.type.name);
+        pokemon.types = data.types.map((x) => x.type.name);
     }
 
     function loadList() {
@@ -55,9 +55,8 @@ const pokemonRepo = (function() {
     function search(key, value) {
         if (typeof value === 'string') {
             return pokemonList.filter((pokemon) => pokemon[key].includes(value));
-        } else {
-            return pokemonList.filter((pokemon) => pokemon[key] === value);
         }
+        return pokemonList.filter((pokemon) => pokemon[key] === value);
     }
 
     function addListItem(pokemon) {
@@ -95,7 +94,7 @@ const pokemonRepo = (function() {
         add: add,
         getAll: getAll,
         search: search,
-        addListItem:addListItem,
+        addListItem: addListItem,
         display: display,
         showDetails: showDetails,
         loadList: loadList,
