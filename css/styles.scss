@@ -70,13 +70,18 @@ h1 {
     letter-spacing: -0.1rem;
 }
 
+h2 {
+    font-size: 150%;
+    margin: 0.5em 0;
+}
+
 #loading-message {
     font-weight: 700;
     animation: 1s loading infinite alternate ease-out;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 #pokemon-list {
@@ -100,6 +105,65 @@ h1 {
     padding: $box-padding;
 }
 
+
+#modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    overflow: auto;
+    display: grid;
+    text-align: center;
+    padding: 50px calc(3% + $universal-margin) 50px calc(3% + $universal-margin);
+}
+
+.modal {
+    margin: auto;
+    display: inline-block;
+    background: $background-color;
+    width: 100%;
+    max-width: 500px;
+    min-width: calc(12em - 2 * $universal-margin);
+    text-align: left;
+    border-radius: $block-border-radius;
+    padding: $box-padding;
+    h2 {
+        margin: 0;
+    }
+    p {
+        margin: 0;
+    }
+}
+
+.modal-close {
+    float: right;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: none;
+    color: #666;
+    text-decoration: none;
+}
+
+.modal-id {
+    color: #666;
+}
+
+.modal-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: $box-padding;
+}
+
+.modal-image {
+    float: right;
+}
+
 // lil loading animation
 @keyframes loading {
     0% {
@@ -120,6 +184,6 @@ html {
 @supports (scrollbar-gutter: stable) {
     html {
         overflow-y: auto;
-        scrollbar-gutter: stable both-edges;
+        scrollbar-gutter: stable;
     }
 }
