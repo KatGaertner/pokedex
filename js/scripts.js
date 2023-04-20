@@ -12,6 +12,7 @@ const pokemonRepo = (function() {
 
     function parseDetails(data, pokemon) {
         pokemon.imageUrl = data.sprites.front_default;
+        pokemon.imageUrlshiny = data.sprites.front_shiny;
         pokemon.height = data.height;
         pokemon.types = data.types.map((x) => x.type.name);
         pokemon.id = data.id;
@@ -96,6 +97,11 @@ const pokemonRepo = (function() {
 
     function loadImage(pokemon, imagecontainer) {
         let imgurl = pokemon.imageUrl;
+        let shinyChance = 4096;
+        if (Math.random() * shinyChance < 1) {
+            imgurl = pokemon.imageUrlshiny;
+        }
+
         let img = new Image();
         img.src = imgurl;
         return img.decode().then(() => {
