@@ -78,8 +78,12 @@ const pokemonRepo = (function() {
     }
 
     function showDetails(pokemon) {
-        loadDetails(pokemon)
-            .then(() => showModal(pokemon));
+        if (!pokemon.height) { // if height is not there, others are not there
+            loadDetails(pokemon)
+                .then(() => showModal(pokemon));
+        } else {
+            showModal(pokemon);
+        }
     }
 
     function hideLoadingMessage() {
