@@ -101,18 +101,13 @@ const pokemonRepo = (function() {
 
     let modalShownIndex = null;
 
-    function loadImage(pokemon, imagecontainer) {
+    function loadImage(pokemon) {
         let imgurl = pokemon.imageUrl;
         let shinyChance = 4096;
         if (Math.random() * shinyChance < 1) {
             imgurl = pokemon.imageUrlshiny;
         }
-
-        let img = new Image();
-        img.src = imgurl;
-        return img.decode().then(() => {
-            imagecontainer.appendChild(img);
-        });
+        return imgurl;
     }
 
     function createModalContent(pokemon) {
@@ -143,26 +138,25 @@ const pokemonRepo = (function() {
         contentElement.innerText = `Height: ${pokemon.height}
                                     Types: ${types}`;
 
+        let imageElement = document.createElement('img');
+        imageElement.src = loadImage(pokemon); 
+
         modal.appendChild(closeButtonElement);
         modal.appendChild(titleElement);
         modal.appendChild(idElement);
         modal.appendChild(flexElement);
         flexElement.appendChild(contentElement);
+        flexElement.appendChild(imageElement);
         modalContainer.appendChild(modal);
-
-        return flexElement;
     }
 
     function showModal(pokemon) {
         showLoadingMessage();
         let modalContainer = document.getElementById('modal-container');
         modalContainer.innerHTML = '';
-        let imagecontainer = createModalContent(pokemon);
-
-        loadImage(pokemon, imagecontainer).then(() => {
-            modalContainer.classList.remove('hidden');
-            hideLoadingMessage();
-        });
+        createModalContent(pokemon);
+        modalContainer.classList.remove('hidden');
+        hideLoadingMessage();
     }
 
     function closeModal() {
@@ -170,19 +164,23 @@ const pokemonRepo = (function() {
         modalContainer.classList.add('hidden');
     }
 
-    // event for closing modal on escape keypress - added to whole window:
-    window.addEventListener('keydown', (e) => {
-        let modalContainer = document.querySelector('#modal-container');
-        if (e.key === 'Escape' && !modalContainer.classList.contains('hidden')) {
-            closeModal();
-        }
-    });
-
     // swiping utility
 
     let start = {};
     let end = {};
     let thresholdDistance = 100;
+
+    function swipeLeft() {
+        let newIndex = modalShownIndex - 1;
+        let pokemon = pokemonList[newIndex];
+        showDetails(pokemon);
+    }
+
+    function swipeRight() {
+        let newIndex = modalShownIndex + 1;
+        let pokemon = pokemonList[newIndex];
+        showDetails(pokemon);
+    }
 
     function gestureStart(e) {
         start.x = e.clientX;
@@ -199,32 +197,40 @@ const pokemonRepo = (function() {
         let target = e.target;
 
         if (!modalContainer.classList.contains('hidden')) {
-            // e.stopPropagation();
-            // e.preventDefault();
-            if (deltaX > thresholdDistance) { // swipe left
-                let newIndex = modalShownIndex - 1;
-                let pokemon = pokemonList[newIndex];
-                showDetails(pokemon);
-            } else if (deltaX < -thresholdDistance) { // swipe right
-                let newIndex = modalShownIndex + 1;
-                let pokemon = pokemonList[newIndex];
-                showDetails(pokemon);
-            } else if (target === modalContainer) { // exit
+            if (deltaX > thresholdDistance) {
+                swipeLeft();
+            } else if (deltaX < -thresholdDistance) {
+                swipeRight();
+            } else if (target === modalContainer) {
                 closeModal();
             }
         }
     }
 
-    let modalContainer = document.querySelector('#modal-container');
-    modalContainer.addEventListener('pointerdown', gestureStart, false);
-    modalContainer.addEventListener('pointerup', gestureEnd, false);
+    function addInitialEventListeners() {
+        let modalContainer = document.querySelector('#modal-container');
+        modalContainer.addEventListener('pointerdown', gestureStart, false);
+        modalContainer.addEventListener('pointerup', gestureEnd, false);
+
+        // event for closing modal on escape keypress - added to whole window:
+        window.addEventListener('keydown', (e) => {
+            let modalContainer = document.querySelector('#modal-container');
+            if (e.key === 'Escape' && !modalContainer.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    }
 
     return {
         getAll: getAll,
         display: display,
-        loadList: loadList
+        loadList: loadList,
+        addInitialEventListeners:addInitialEventListeners
     };
 })();
 
 pokemonRepo.loadList()
-    .then(() => pokemonRepo.display(pokemonRepo.getAll()));
+    .then(() => {
+        pokemonRepo.addInitialEventListeners();
+        pokemonRepo.display(pokemonRepo.getAll());
+    });

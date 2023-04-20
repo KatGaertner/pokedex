@@ -146,6 +146,8 @@ h2 {
     background: none;
     color: #666;
     text-decoration: none;
+    font-size: 150%;
+    font-weight: 700;
 }
 
 .modal-id {
@@ -159,10 +161,6 @@ h2 {
     justify-content: space-between;
     margin-top: 0.5em;
     min-height: 96px;
-}
-
-.modal-image {
-    float: right;
 }
 
 // lil loading animation
