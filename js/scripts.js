@@ -47,7 +47,6 @@ const pokemonRepo = (function() {
 
     function add(pokemon) {
         pokemonList.push(pokemon);
-        console.log('added pokemon');
     }
 
     function getAll() {
@@ -71,20 +70,11 @@ const pokemonRepo = (function() {
         ul.appendChild(li);
 
         // use pointerup so it doesn't interfere with the modal...
-        button.addEventListener('pointerup', () => showDetails(pokemon));
+        button.addEventListener('pointerup', () => modalHandler.showDetails(pokemon));
     }
 
     function display(pokemons) {
         pokemons.forEach((pokemon) => addListItem(pokemon));
-    }
-
-    function showDetails(pokemon) {
-        if (!pokemon.height) { // if height is not there, others are not there
-            loadDetails(pokemon)
-                .then(() => showModal(pokemon));
-        } else {
-            showModal(pokemon);
-        }
     }
 
     function hideLoadingMessage() {
@@ -97,9 +87,29 @@ const pokemonRepo = (function() {
         elem.classList.remove('hidden');
     }
 
-    // modal utility
+    return {
+        getAll,
+        display,
+        loadList,
+        showLoadingMessage,
+        hideLoadingMessage,
+        loadDetails
+    };
+})();
 
+
+const modalHandler = (function() {
+    // modal utility
     let modalShownIndex = null;
+
+    function showDetails(pokemon) {
+        if (!pokemon.height) { // if height is not there, others are not there
+            pokemonRepo.loadDetails(pokemon)
+                .then(() => showModal(pokemon));
+        } else {
+            showModal(pokemon);
+        }
+    }
 
     function loadImage(pokemon) {
         let imgurl = pokemon.imageUrl;
@@ -139,7 +149,7 @@ const pokemonRepo = (function() {
                                     Types: ${types}`;
 
         let imageElement = document.createElement('img');
-        imageElement.src = loadImage(pokemon); 
+        imageElement.src = loadImage(pokemon);
 
         modal.appendChild(closeButtonElement);
         modal.appendChild(titleElement);
@@ -151,12 +161,12 @@ const pokemonRepo = (function() {
     }
 
     function showModal(pokemon) {
-        showLoadingMessage();
+        pokemonRepo.showLoadingMessage();
         let modalContainer = document.getElementById('modal-container');
         modalContainer.innerHTML = '';
         createModalContent(pokemon);
         modalContainer.classList.remove('hidden');
-        hideLoadingMessage();
+        pokemonRepo.hideLoadingMessage();
     }
 
     function closeModal() {
@@ -166,33 +176,31 @@ const pokemonRepo = (function() {
 
     // swiping utility
 
-    let start = {};
-    let end = {};
-    let thresholdDistance = 100;
-
     function swipeLeft() {
         let newIndex = modalShownIndex - 1;
-        let pokemon = pokemonList[newIndex];
+        let pokemon = pokemonRepo.getAll()[newIndex];
         showDetails(pokemon);
     }
 
     function swipeRight() {
         let newIndex = modalShownIndex + 1;
-        let pokemon = pokemonList[newIndex];
+        let pokemon = pokemonRepo.getAll()[newIndex];
         showDetails(pokemon);
     }
 
+    let startX = 0;
+    let endX = 0;
+    let thresholdDistance = 100;
+
     function gestureStart(e) {
-        start.x = e.clientX;
-        start.y = e.clientY;
+        startX = e.clientX;
     }
 
     function gestureEnd(e) {
-        end.x = e.clientX;
-        end.y = e.clientY;
-        let deltaX = end.x - start.x;
-        start = {};
-        end = {};
+        endX = e.clientX;
+        let deltaX = endX - startX;
+        startX = 0;
+        endX = 0;
         let modalContainer = document.querySelector('#modal-container');
         let target = e.target;
 
@@ -209,8 +217,8 @@ const pokemonRepo = (function() {
 
     function addInitialEventListeners() {
         let modalContainer = document.querySelector('#modal-container');
-        modalContainer.addEventListener('pointerdown', gestureStart, false);
-        modalContainer.addEventListener('pointerup', gestureEnd, false);
+        modalContainer.addEventListener('pointerdown', gestureStart);
+        modalContainer.addEventListener('pointerup', gestureEnd);
 
         window.addEventListener('keydown', (e) => {
             if (!modalContainer.classList.contains('hidden')) {
@@ -226,15 +234,14 @@ const pokemonRepo = (function() {
     }
 
     return {
-        getAll: getAll,
-        display: display,
-        loadList: loadList,
-        addInitialEventListeners:addInitialEventListeners
+        addInitialEventListeners,
+        showDetails
     };
 })();
 
+
 pokemonRepo.loadList()
     .then(() => {
-        pokemonRepo.addInitialEventListeners();
+        modalHandler.addInitialEventListeners();
         pokemonRepo.display(pokemonRepo.getAll());
     });
