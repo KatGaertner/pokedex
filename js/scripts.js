@@ -70,7 +70,8 @@ const pokemonRepo = (function() {
         li.appendChild(button);
         ul.appendChild(li);
 
-        button.addEventListener('click', () => showDetails(pokemon));
+        // use pointerup so it doesn't interfere with the modal...
+        button.addEventListener('pointerup', () => showDetails(pokemon));
     }
 
     function display(pokemons) {
@@ -179,55 +180,44 @@ const pokemonRepo = (function() {
 
     // swiping utility
 
-    let isTracking = false;
     let start = {};
     let end = {};
     let thresholdDistance = 100;
 
     function gestureStart(e) {
-        isTracking = true;
         start.x = e.clientX;
         start.y = e.clientY;
     }
 
-    function gestureMove(e) {
-        if (isTracking) {
-            end.x = e.clientX;
-            end.y = e.clientY;
-        }
-    }
-
     function gestureEnd(e) {
-        if (isTracking) {
-            isTracking = false;
-            let deltaX = end.x - start.x;
-            start = {};
-            end = {};
+        end.x = e.clientX;
+        end.y = e.clientY;
+        let deltaX = end.x - start.x;
+        start = {};
+        end = {};
+        let modalContainer = document.querySelector('#modal-container');
+        let target = e.target;
 
-            let modalContainer = document.querySelector('#modal-container');
-            let target = e.target;
-            if (!modalContainer.classList.contains('hidden')) {
-                if (deltaX > thresholdDistance) {
-                    console.log('swipe... right?');
-                    let newIndex = modalShownIndex + 1;
-                    showDetails(pokemonList[newIndex]);
-                } else if (deltaX < -thresholdDistance) {
-                    console.log('swipe... left?');
-                    let newIndex = modalShownIndex - 1;
-                    showDetails(pokemonList[newIndex]);
-                } else if (target === modalContainer) {
-                    console.log('click-close');
-                    closeModal();
-                }
+        if (!modalContainer.classList.contains('hidden')) {
+            // e.stopPropagation();
+            // e.preventDefault();
+            if (deltaX > thresholdDistance) { // swipe left
+                let newIndex = modalShownIndex - 1;
+                let pokemon = pokemonList[newIndex];
+                showDetails(pokemon);
+            } else if (deltaX < -thresholdDistance) { // swipe right
+                let newIndex = modalShownIndex + 1;
+                let pokemon = pokemonList[newIndex];
+                showDetails(pokemon);
+            } else if (target === modalContainer) { // exit
+                closeModal();
             }
         }
     }
 
-    window.addEventListener('pointerdown', gestureStart);
-    window.addEventListener('pointerup', gestureEnd);
-    window.addEventListener('pointercancel', gestureEnd);
-    window.addEventListener('pointerleave', gestureEnd);
-    window.addEventListener('pointermove', gestureMove);
+    let modalContainer = document.querySelector('#modal-container');
+    modalContainer.addEventListener('pointerdown', gestureStart, false);
+    modalContainer.addEventListener('pointerup', gestureEnd, false);
 
     return {
         getAll: getAll,
