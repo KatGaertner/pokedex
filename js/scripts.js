@@ -158,14 +158,6 @@ const pokemonRepo = (function() {
             modalContainer.classList.remove('hidden');
             hideLoadingMessage();
         });
-
-        // event for closing modal on pressing outside the modal:
-        modalContainer.addEventListener('click', (e) => {
-            let target = e.target;
-            if (target === modalContainer) {
-                closeModal();
-            }
-        });
     }
 
     function closeModal() {
@@ -201,7 +193,7 @@ const pokemonRepo = (function() {
         }
     }
 
-    function gestureEnd() {
+    function gestureEnd(e) {
         if (isTracking) {
             isTracking = false;
             let deltaX = end.x - start.x;
@@ -222,6 +214,12 @@ const pokemonRepo = (function() {
                     showDetails(pokemonList[newIndex]);
                 }
             }
+        }
+
+        let target = e.target;
+        let modalContainer = document.querySelector('#modal-container');
+        if (target === modalContainer) {
+            closeModal();
         }
     }
 
