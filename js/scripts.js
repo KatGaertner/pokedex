@@ -91,6 +91,18 @@ const pokemonRepo = (function() {
         elem.classList.remove('hidden');
     }
 
+    // modal utility
+
+
+    function loadImage(pokemon, imagecontainer) {
+        let imgurl = pokemon.imageUrl;
+        let img = new Image();
+        img.src = imgurl;
+        return img.decode().then(() => {
+            imagecontainer.appendChild(img);
+        });
+    }
+
     function createModalContent(pokemon) {
         let modalContainer = document.getElementById('modal-container');
 
@@ -113,9 +125,6 @@ const pokemonRepo = (function() {
         let flexElement = document.createElement('div');
         flexElement.classList.add('modal-flex');
 
-        let imageElement = document.createElement('img');
-        imageElement.src = pokemon.imageUrl;
-
         let contentElement = document.createElement('p');
         let types = pokemon.types.join(', ');
         contentElement.innerText = `Height: ${pokemon.height}
@@ -126,17 +135,21 @@ const pokemonRepo = (function() {
         modal.appendChild(idElement);
         modal.appendChild(flexElement);
         flexElement.appendChild(contentElement);
-        flexElement.appendChild(imageElement);
         modalContainer.appendChild(modal);
+
+        return flexElement;
     }
 
     function showModal(pokemon) {
+        showLoadingMessage();
         let modalContainer = document.getElementById('modal-container');
         modalContainer.innerHTML = '';
+        let imagecontainer = createModalContent(pokemon);
 
-        createModalContent(pokemon);
-
-        modalContainer.classList.remove('hidden');
+        loadImage(pokemon, imagecontainer).then(() => {
+            modalContainer.classList.remove('hidden');
+            hideLoadingMessage();
+        });
 
         // event for closing modal on pressing outside the modal:
         modalContainer.addEventListener('click', (e) => {
