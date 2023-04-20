@@ -229,18 +229,9 @@ const pokemonRepo = (function() {
     window.addEventListener('pointermove', gestureMove);
 
     return {
-        add: add,
         getAll: getAll,
-        search: search,
-        addListItem: addListItem,
         display: display,
-        showDetails: showDetails,
-        loadList: loadList,
-        loadDetails: loadDetails,
-        hideLoadingMessage: hideLoadingMessage,
-        showLoadingMessage: showLoadingMessage,
-        showModal: showModal,
-        closeModal: closeModal
+        loadList: loadList
     };
 })();
 
