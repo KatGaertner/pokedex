@@ -142,7 +142,8 @@ h2 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-top: 1em;
+  margin-top: 0.5em;
+  min-height: 96px;
 }
 
 .modal-image {
