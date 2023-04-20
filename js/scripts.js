@@ -94,6 +94,7 @@ const pokemonRepo = (function() {
 
     // modal utility
 
+    let modalShownIndex = null;
 
     function loadImage(pokemon, imagecontainer) {
         let imgurl = pokemon.imageUrl;
@@ -111,6 +112,7 @@ const pokemonRepo = (function() {
 
     function createModalContent(pokemon) {
         let modalContainer = document.getElementById('modal-container');
+        modalShownIndex = pokemon.id - 1; // as of now, pokemon ID = list index + 1
 
         let modal = document.createElement('div');
         modal.classList.add('modal');
@@ -178,6 +180,53 @@ const pokemonRepo = (function() {
             closeModal();
         }
     });
+
+    // swiping utility
+
+    let isTracking = false;
+    let start = {};
+    let end = {};
+    let thresholdDistance = 100;
+
+    function gestureStart(e) {
+        isTracking = true;
+        start.x = e.clientX;
+        start.y = e.clientY;
+    }
+
+    function gestureMove(e) {
+        if (isTracking) {
+            end.x = e.clientX;
+            end.y = e.clientY;
+        }
+    }
+
+    function gestureEnd() {
+        if (isTracking) {
+            isTracking = false;
+            let deltaX = end.x - start.x;
+            let modalContainer = document.querySelector('#modal-container');
+            if (!modalContainer.classList.contains('hidden')) {
+                if (deltaX > thresholdDistance) {
+                    console.log('swipe... right?');
+                    let newIndex = modalShownIndex + 1;
+                    closeModal();
+                    showDetails(pokemonList[newIndex]);
+                } else if (deltaX < -thresholdDistance) {
+                    console.log('swipe... left?');
+                    let newIndex = modalShownIndex - 1;
+                    closeModal();
+                    showDetails(pokemonList[newIndex]);
+                }
+            }
+        }
+    }
+
+    window.addEventListener('pointerdown', gestureStart);
+    window.addEventListener('pointerup', gestureEnd);
+    window.addEventListener('pointercancel', gestureEnd);
+    window.addEventListener('pointerleave', gestureEnd);
+    window.addEventListener('pointermove', gestureMove);
 
     return {
         add: add,
