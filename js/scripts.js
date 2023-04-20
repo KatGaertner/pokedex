@@ -210,12 +210,10 @@ const pokemonRepo = (function() {
                 if (deltaX > thresholdDistance) {
                     console.log('swipe... right?');
                     let newIndex = modalShownIndex + 1;
-                    closeModal();
                     showDetails(pokemonList[newIndex]);
                 } else if (deltaX < -thresholdDistance) {
                     console.log('swipe... left?');
                     let newIndex = modalShownIndex - 1;
-                    closeModal();
                     showDetails(pokemonList[newIndex]);
                 } else if (target === modalContainer) {
                     console.log('click-close');
