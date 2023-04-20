@@ -205,6 +205,7 @@ const pokemonRepo = (function() {
             end = {};
 
             let modalContainer = document.querySelector('#modal-container');
+            let target = e.target;
             if (!modalContainer.classList.contains('hidden')) {
                 if (deltaX > thresholdDistance) {
                     console.log('swipe... right?');
@@ -216,14 +217,11 @@ const pokemonRepo = (function() {
                     let newIndex = modalShownIndex - 1;
                     closeModal();
                     showDetails(pokemonList[newIndex]);
+                } else if (target === modalContainer) {
+                    console.log('click-close');
+                    closeModal();
                 }
             }
-        }
-
-        let target = e.target;
-        let modalContainer = document.querySelector('#modal-container');
-        if (target === modalContainer) {
-            closeModal();
         }
     }
 
