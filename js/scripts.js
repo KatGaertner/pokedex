@@ -212,11 +212,15 @@ const pokemonRepo = (function() {
         modalContainer.addEventListener('pointerdown', gestureStart, false);
         modalContainer.addEventListener('pointerup', gestureEnd, false);
 
-        // event for closing modal on escape keypress - added to whole window:
         window.addEventListener('keydown', (e) => {
-            let modalContainer = document.querySelector('#modal-container');
-            if (e.key === 'Escape' && !modalContainer.classList.contains('hidden')) {
-                closeModal();
+            if (!modalContainer.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    swipeLeft();
+                } else if (e.key === 'ArrowRight') {
+                    swipeRight();
+                }
             }
         });
     }
