@@ -205,6 +205,9 @@ const pokemonRepo = (function() {
         if (isTracking) {
             isTracking = false;
             let deltaX = end.x - start.x;
+            start = {};
+            end = {};
+
             let modalContainer = document.querySelector('#modal-container');
             if (!modalContainer.classList.contains('hidden')) {
                 if (deltaX > thresholdDistance) {
