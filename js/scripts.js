@@ -69,8 +69,7 @@ const pokemonRepo = (function() {
         li.appendChild(button);
         ul.appendChild(li);
 
-        // use pointerup so it doesn't interfere with the modal...
-        button.addEventListener('pointerup', () => modalHandler.showDetails(pokemon));
+        button.addEventListener('click', () => modalHandler.showDetails(pokemon));
     }
 
     function display(pokemons) {
@@ -219,6 +218,7 @@ const modalHandler = (function() {
         let modalContainer = document.querySelector('#modal-container');
         modalContainer.addEventListener('pointerdown', gestureStart);
         modalContainer.addEventListener('pointerup', gestureEnd);
+        modalContainer.addEventListener('touchstart', (e) => e.preventDefault());
 
         window.addEventListener('keydown', (e) => {
             if (!modalContainer.classList.contains('hidden')) {
