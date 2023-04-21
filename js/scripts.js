@@ -218,7 +218,11 @@ const modalHandler = (function() {
         let modalContainer = document.querySelector('#modal-container');
         modalContainer.addEventListener('pointerdown', gestureStart);
         modalContainer.addEventListener('pointerup', gestureEnd);
-        modalContainer.addEventListener('touchstart', (e) => e.preventDefault());
+        modalContainer.addEventListener('touchstart', (e) => {
+            if (e.target === e.currentTarget) {
+                e.preventDefault();
+            }
+        });
 
         window.addEventListener('keydown', (e) => {
             if (!modalContainer.classList.contains('hidden')) {
