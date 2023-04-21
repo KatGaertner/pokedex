@@ -222,7 +222,7 @@ const modalHandler = (function() {
             if (e.target === e.currentTarget) {
                 e.preventDefault();
             }
-        });
+        }, {passive: false});
 
         window.addEventListener('keydown', (e) => {
             if (!modalContainer.classList.contains('hidden')) {
