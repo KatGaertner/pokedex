@@ -102,6 +102,7 @@ const modalHandler = (function() {
     let modalShownIndex = null;
 
     function showDetails(pokemon) {
+        scrollLock();
         if (!pokemon.height) { // if height is not there, others are not there
             pokemonRepo.loadDetails(pokemon)
                 .then(() => showModal(pokemon));
@@ -171,6 +172,7 @@ const modalHandler = (function() {
     function closeModal() {
         let modalContainer = document.getElementById('modal-container');
         modalContainer.classList.add('hidden');
+        scrollAllow();
     }
 
     // swiping utility
@@ -192,10 +194,12 @@ const modalHandler = (function() {
     let thresholdDistance = 100;
 
     function gestureStart(e) {
+        console.log('gestureStart');
         startX = e.clientX;
     }
 
     function gestureEnd(e) {
+        console.log('gestureEnd');
         endX = e.clientX;
         let deltaX = endX - startX;
         startX = 0;
@@ -214,15 +218,45 @@ const modalHandler = (function() {
         }
     }
 
+    function lockBackground(e) {
+        if (e.target === e.currentTarget) {
+            e.preventDefault();
+        }
+    }
+
+    // background scroll locking workaround from
+    // https://www.jayfreestone.com/writing/locking-body-scroll-ios/
+
+    let scrollTop = 0;
+
+    function scrollLock() {
+        let modalContainer = document.querySelector('#modal-container');
+        if (modalContainer.classList.contains('hidden')) {
+            scrollTop = window.scrollY;
+            console.log('scrollLock', scrollTop);
+        }
+        let content = document.querySelector('.page-container');
+        content.classList.add('fixed');
+        modalContainer.classList.add('modal--open');
+        content.scroll(0, scrollTop);
+    }
+
+    function scrollAllow() {
+        let modalContainer = document.querySelector('#modal-container');
+        if (modalContainer.classList.contains('hidden')) {
+            let content = document.querySelector('.page-container');
+            content.classList.remove('fixed');
+            modalContainer.classList.remove('modal--open');
+            window.scroll(0, scrollTop);
+        }
+    }
+
     function addInitialEventListeners() {
         let modalContainer = document.querySelector('#modal-container');
         modalContainer.addEventListener('pointerdown', gestureStart);
         modalContainer.addEventListener('pointerup', gestureEnd);
-        modalContainer.addEventListener('touchstart', (e) => {
-            if (e.target === e.currentTarget) {
-                e.preventDefault();
-            }
-        }, {passive: false});
+        modalContainer.addEventListener('touchstart', (e) => lockBackground(e), {passive: false});
+        modalContainer.addEventListener('touchmove', (e) => lockBackground(e), {passive: false});
 
         window.addEventListener('keydown', (e) => {
             if (!modalContainer.classList.contains('hidden')) {
