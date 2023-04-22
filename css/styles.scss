@@ -88,6 +88,7 @@ h2 {
 .fixed {
     position: absolute;
     height: 100%;
+    height: 100dvh; // dynamic view height for browsers that support it
     width: calc(100% - 2* $page-padding);
     overflow: hidden;
 }
