@@ -130,10 +130,6 @@ h2 {
   margin: 0;
 }
 
-.modal--open {
-  display: block;
-}
-
 .modal-close {
   float: right;
   -moz-appearance: none;

@@ -1,3 +1,5 @@
+'use strict';
+
 const pokemonRepo = (function() {
     const pokemonList = [];
     const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=251';
@@ -7,7 +9,7 @@ const pokemonRepo = (function() {
             name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
             detailsUrl: item.url
         };
-        add(pokemon);
+        pokemonList.push(pokemon);
     }
 
     function parseDetails(data, pokemon) {
@@ -45,14 +47,11 @@ const pokemonRepo = (function() {
             });
     }
 
-    function add(pokemon) {
-        pokemonList.push(pokemon);
-    }
-
     function getAll() {
         return pokemonList;
     }
 
+    // keeping this because I want to use it later
     function search(key, value) {
         if (typeof value === 'string') {
             return pokemonList.filter((pokemon) => pokemon[key].includes(value));
@@ -98,12 +97,17 @@ const pokemonRepo = (function() {
 
 
 const modalHandler = (function() {
-    // modal utility
+    // list index (for pokemonRepo) of the pokemon that is currently shown in the modal
     let modalShownIndex = null;
 
+    // load the container here because it is used so often
+    const modalContainer = document.getElementById('modal-container');
+
     function showDetails(pokemon) {
+        // lock the background from scrolling
         scrollLock();
-        if (!pokemon.height) { // if height is not there, others are not there
+        // if height is not there, the other details are not there, so load the details
+        if (!pokemon.height) {
             pokemonRepo.loadDetails(pokemon)
                 .then(() => showModal(pokemon));
         } else {
@@ -121,8 +125,10 @@ const modalHandler = (function() {
     }
 
     function createModalContent(pokemon) {
-        let modalContainer = document.getElementById('modal-container');
-        modalShownIndex = pokemon.id - 1; // as of now, pokemon ID = list index + 1
+        // list index for pokeRepo = actual pokemon ID - 1
+        modalShownIndex = pokemon.id - 1;
+
+        // create all elements for the modal
 
         let modal = document.createElement('div');
         modal.classList.add('modal');
@@ -130,7 +136,6 @@ const modalHandler = (function() {
         let closeButtonElement = document.createElement('button');
         closeButtonElement.classList.add('modal-close');
         closeButtonElement.innerText = 'X';
-        // event for closing modal close button - added to the button:
         closeButtonElement.addEventListener('click', closeModal);
 
         let titleElement = document.createElement('h2');
@@ -151,6 +156,7 @@ const modalHandler = (function() {
         let imageElement = document.createElement('img');
         imageElement.src = loadImage(pokemon);
 
+        // attach elements to modal and container
         modal.appendChild(closeButtonElement);
         modal.appendChild(titleElement);
         modal.appendChild(idElement);
@@ -162,7 +168,6 @@ const modalHandler = (function() {
 
     function showModal(pokemon) {
         pokemonRepo.showLoadingMessage();
-        let modalContainer = document.getElementById('modal-container');
         modalContainer.innerHTML = '';
         createModalContent(pokemon);
         modalContainer.classList.remove('hidden');
@@ -170,7 +175,6 @@ const modalHandler = (function() {
     }
 
     function closeModal() {
-        let modalContainer = document.getElementById('modal-container');
         modalContainer.classList.add('hidden');
         scrollAllow();
     }
@@ -189,25 +193,27 @@ const modalHandler = (function() {
         showDetails(pokemon);
     }
 
-    let startX = 0;
-    let endX = 0;
+    // setting up the swiping gestures
+    let startX = null;
+    let endX = null;
+    // thresholdDistance sets distance before swiping is activated
+    // TODO: setting this as absolute might not be the best idea
     let thresholdDistance = 100;
 
     function gestureStart(e) {
-        console.log('gestureStart');
         startX = e.clientX;
     }
 
     function gestureEnd(e) {
-        console.log('gestureEnd');
         endX = e.clientX;
         let deltaX = endX - startX;
-        startX = 0;
-        endX = 0;
-        let modalContainer = document.querySelector('#modal-container');
+        startX = null;
+        endX = null;
         let target = e.target;
 
         if (!modalContainer.classList.contains('hidden')) {
+            // if threshold is met, swipe
+            // if threshold distance is not met and the modal container is the target, close modal
             if (deltaX > thresholdDistance) {
                 swipeLeft();
             } else if (deltaX < -thresholdDistance) {
@@ -218,8 +224,9 @@ const modalHandler = (function() {
         }
     }
 
+    // locks the buttons in the background from being accessed when overlay is touched
     function lockBackground(e) {
-        if (e.target === e.currentTarget) {
+        if (e.target === modalContainer) {
             e.preventDefault();
         }
     }
@@ -230,34 +237,40 @@ const modalHandler = (function() {
     let scrollTop = 0;
 
     function scrollLock() {
-        let modalContainer = document.querySelector('#modal-container');
         if (modalContainer.classList.contains('hidden')) {
+            // get the current scrolling position of the window
             scrollTop = window.scrollY;
-            console.log('scrollLock', scrollTop);
         }
+        // set the whole page to position: absolute and overflow: hidden
         let content = document.querySelector('.page-container');
         content.classList.add('fixed');
-        modalContainer.classList.add('modal--open');
+        // scroll the page to the correct position
         content.scroll(0, scrollTop);
     }
 
     function scrollAllow() {
-        let modalContainer = document.querySelector('#modal-container');
         if (modalContainer.classList.contains('hidden')) {
             let content = document.querySelector('.page-container');
+            // remove position: absolute and overflow: hidden
             content.classList.remove('fixed');
-            modalContainer.classList.remove('modal--open');
+            // scroll the window to where it was before
             window.scroll(0, scrollTop);
         }
     }
 
+    // event listeners
+
     function addInitialEventListeners() {
-        let modalContainer = document.querySelector('#modal-container');
+        // for swiping
         modalContainer.addEventListener('pointerdown', gestureStart);
         modalContainer.addEventListener('pointerup', gestureEnd);
+
+        // for mobile, when touching the modal container lock the buttons in the background from being accessed
+        // passive: false, because some browsers use true as default, which prevents use of e.preventDefault()
         modalContainer.addEventListener('touchstart', (e) => lockBackground(e), {passive: false});
         modalContainer.addEventListener('touchmove', (e) => lockBackground(e), {passive: false});
 
+        // keyboard controls for modal
         window.addEventListener('keydown', (e) => {
             if (!modalContainer.classList.contains('hidden')) {
                 if (e.key === 'Escape') {
@@ -273,7 +286,8 @@ const modalHandler = (function() {
 
     return {
         addInitialEventListeners,
-        showDetails
+        showDetails,
+        scrollLock
     };
 })();
 
