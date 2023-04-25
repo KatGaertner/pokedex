@@ -51,10 +51,9 @@ const pokemonRepo = (function() {
         return pokemonList;
     }
 
-    // keeping this because I want to use it later
     function search(key, value) {
         if (typeof value === 'string') {
-            return pokemonList.filter((pokemon) => pokemon[key].includes(value));
+            return pokemonList.filter((pokemon) => pokemon[key].toLowerCase().includes(value));
         }
         return pokemonList.filter((pokemon) => pokemon[key] === value);
     }
@@ -81,6 +80,11 @@ const pokemonRepo = (function() {
         pokemons.forEach((pokemon) => addListItem(pokemon));
     }
 
+    function cleanDisplay() {
+        let elems = document.querySelectorAll('#pokemon-list li');
+        elems.forEach((el) => el.remove());
+    }
+
     function hideLoadingMessage() {
         let elem = document.getElementById('loading-message');
         elem.classList.add('hidden');
@@ -94,10 +98,12 @@ const pokemonRepo = (function() {
     return {
         getAll,
         display,
+        cleanDisplay,
         loadList,
         showLoadingMessage,
         hideLoadingMessage,
-        loadDetails
+        loadDetails,
+        search
     };
 })();
 
@@ -216,6 +222,14 @@ const modalHandler = (function() {
                     swipeRight();
                 }
             }
+        });
+
+        let searchBar = document.getElementById('searchbar');
+        searchBar.addEventListener('input', (e) => {
+            pokemonRepo.cleanDisplay();
+            let val = e.target.value;
+            let list = pokemonRepo.search('name', val);
+            pokemonRepo.display(list);
         });
     }
 
