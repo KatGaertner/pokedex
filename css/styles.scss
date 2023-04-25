@@ -75,21 +75,22 @@ h2 {
     // animation: 1s loading infinite alternate ease-out;
 }
 
-.hidden-message {
-    visibility: hidden;
+.hidden {
+    // visibility: hidden;
+    display: none !important;
 }
 
 // .hidden {
 //     // display: none !important;
 // }
 
-.fixed {
-    // position: absolute;
-    height: 100%;
-    height: 100dvh; // dynamic view height for browsers that support it
-    width: 100%;
-    overflow: hidden;
-}
+// .fixed {
+//     // position: absolute;
+//     height: 100%;
+//     height: 100dvh; // dynamic view height for browsers that support it
+//     width: 100%;
+//     overflow: hidden;
+// }
 
 #pokemon-list {
     // list-style-type: none;
@@ -128,6 +129,9 @@ h2 {
     }
 }
 
+.modal {
+    height: auto;
+}
 
 #modal-container {
     // position: fixed;
@@ -152,7 +156,7 @@ h2 {
     // text-align: left;
     border-radius: $block-border-radius;
     padding: $universal-margin;
-    margin-top: 65px;
+    // margin-top: 65px;
     // position: relative;
     // height: auto;
 
