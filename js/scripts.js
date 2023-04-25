@@ -65,6 +65,12 @@ const pokemonRepo = (function() {
         let button = document.createElement('button');
         button.innerText = pokemon.name;
         button.classList.add('pokemon-list__item');
+        button.classList.add('list-group-item');
+        button.classList.add('btn');
+        button.classList.add('btn-light');
+        button.classList.add('btn-block');
+        button.setAttribute('data-toggle', 'modal');
+        button.setAttribute('data-target', '#modal-container');
         li.appendChild(button);
         ul.appendChild(li);
 
@@ -100,12 +106,10 @@ const modalHandler = (function() {
     // list index (for pokemonRepo) of the pokemon that is currently shown in the modal
     let modalShownIndex = null;
 
-    // load the container here because it is used so often
     const modalContainer = document.getElementById('modal-container');
 
     function showDetails(pokemon) {
-        // lock the background from scrolling
-        scrollLock();
+        modalContainer.innerHTML = '';
         // if height is not there, the other details are not there, so load the details
         if (!pokemon.height) {
             pokemonRepo.loadDetails(pokemon)
@@ -130,53 +134,69 @@ const modalHandler = (function() {
 
         // create all elements for the modal
 
-        let modal = document.createElement('div');
-        modal.classList.add('modal');
+        let modalDialog = document.createElement('div');
+        modalDialog.classList.add('modal-dialog');
+        modalDialog.setAttribute('role', 'dialog');
 
-        let closeButtonElement = document.createElement('button');
-        closeButtonElement.classList.add('modal-close');
-        closeButtonElement.innerText = 'X';
-        closeButtonElement.addEventListener('click', closeModal);
+        let modalContent = document.createElement('div');
+        modalContent.classList.add('modal-content');
+        modalDialog.appendChild(modalContent);
+
+        let modalHeader = document.createElement('div');
+        modalHeader.classList.add('modal-header');
+        modalContent.appendChild(modalHeader);
+
+        let modalTitle = document.createElement('div');
+        modalTitle.classList.add('modal-title');
+        modalHeader.appendChild(modalTitle);
 
         let titleElement = document.createElement('h2');
         titleElement.innerText = pokemon.name;
+        modalTitle.appendChild(titleElement);
 
         let idElement = document.createElement('p');
         idElement.classList.add('modal-id');
         idElement.innerText = `#${pokemon.id}`;
+        modalTitle.appendChild(idElement);
+
+        let closeButtonElement = document.createElement('button');
+        closeButtonElement.classList.add('modal-close');
+        closeButtonElement.classList.add('close');
+        modalDialog.setAttribute('data-dismiss', 'modal');
+        modalDialog.setAttribute('aria-label', 'Close');
+        closeButtonElement.innerText = 'x';
+        closeButtonElement.addEventListener('click', closeModal);
+        modalHeader.appendChild(closeButtonElement);
+
+        let modalBody = document.createElement('div');
+        modalBody.classList.add('modal-body');
+        modalContent.append(modalBody);
 
         let flexElement = document.createElement('div');
         flexElement.classList.add('modal-flex');
+        modalBody.appendChild(flexElement);
 
         let contentElement = document.createElement('p');
         let types = pokemon.types.join(', ');
         contentElement.innerText = `Height: ${pokemon.height}
                                     Types: ${types}`;
+        flexElement.appendChild(contentElement);
 
         let imageElement = document.createElement('img');
         imageElement.src = loadImage(pokemon);
-
-        // attach elements to modal and container
-        modal.appendChild(closeButtonElement);
-        modal.appendChild(titleElement);
-        modal.appendChild(idElement);
-        modal.appendChild(flexElement);
-        flexElement.appendChild(contentElement);
         flexElement.appendChild(imageElement);
-        modalContainer.appendChild(modal);
+
+        modalContainer.appendChild(modalDialog);
     }
 
     function showModal(pokemon) {
         pokemonRepo.showLoadingMessage();
         modalContainer.innerHTML = '';
         createModalContent(pokemon);
-        modalContainer.classList.remove('hidden');
         pokemonRepo.hideLoadingMessage();
     }
 
     function closeModal() {
-        modalContainer.classList.add('hidden');
-        scrollAllow();
     }
 
     // swiping utility
@@ -193,86 +213,12 @@ const modalHandler = (function() {
         showDetails(pokemon);
     }
 
-    // setting up the swiping gestures
-    let startX = null;
-    let endX = null;
-    // thresholdDistance sets distance before swiping is activated
-    // TODO: setting this as absolute might not be the best idea
-    let thresholdDistance = 100;
-
-    function gestureStart(e) {
-        startX = e.clientX;
-    }
-
-    function gestureEnd(e) {
-        endX = e.clientX;
-        let deltaX = endX - startX;
-        startX = null;
-        endX = null;
-        let target = e.target;
-
-        if (!modalContainer.classList.contains('hidden')) {
-            // if threshold is met, swipe
-            // if threshold distance is not met and the modal container is the target, close modal
-            if (deltaX > thresholdDistance) {
-                swipeLeft();
-            } else if (deltaX < -thresholdDistance) {
-                swipeRight();
-            } else if (target === modalContainer) {
-                closeModal();
-            }
-        }
-    }
-
-    // locks the buttons in the background from being accessed when overlay is touched
-    function lockBackground(e) {
-        if (e.target === modalContainer) {
-            e.preventDefault();
-        }
-    }
-
-    // background scroll locking workaround from
-    // https://www.jayfreestone.com/writing/locking-body-scroll-ios/
-
-    let scrollTop = 0;
-
-    function scrollLock() {
-        if (modalContainer.classList.contains('hidden')) {
-            // get the current scrolling position of the window
-            scrollTop = window.scrollY;
-        }
-        // set the whole page to position: absolute and overflow: hidden
-        let content = document.querySelector('.page-container');
-        content.classList.add('fixed');
-        // scroll the page to the correct position
-        content.scroll(0, scrollTop);
-    }
-
-    function scrollAllow() {
-        if (modalContainer.classList.contains('hidden')) {
-            let content = document.querySelector('.page-container');
-            // remove position: absolute and overflow: hidden
-            content.classList.remove('fixed');
-            // scroll the window to where it was before
-            window.scroll(0, scrollTop);
-        }
-    }
-
     // event listeners
 
     function addInitialEventListeners() {
-        // for swiping
-        modalContainer.addEventListener('pointerdown', gestureStart);
-        modalContainer.addEventListener('pointerup', gestureEnd);
-
-        // for mobile, when touching the modal container lock the buttons in the background from being accessed
-        // passive: false, because some browsers use true as default, which prevents use of e.preventDefault()
-        modalContainer.addEventListener('touchstart', (e) => lockBackground(e), {passive: false});
-        modalContainer.addEventListener('touchmove', (e) => lockBackground(e), {passive: false});
-
         // keyboard controls for modal
         window.addEventListener('keydown', (e) => {
-            if (!modalContainer.classList.contains('hidden')) {
+            if (modalContainer.classList.contains('show')) {
                 if (e.key === 'Escape') {
                     closeModal();
                 } else if (e.key === 'ArrowLeft') {
@@ -286,8 +232,7 @@ const modalHandler = (function() {
 
     return {
         addInitialEventListeners,
-        showDetails,
-        scrollLock
+        showDetails
     };
 })();
 

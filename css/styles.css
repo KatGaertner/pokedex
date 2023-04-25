@@ -39,10 +39,6 @@ h2 {
   visibility: hidden;
 }
 
-.hidden {
-  display: none !important;
-}
-
 .fixed {
   height: 100%;
   height: 100dvh;
@@ -58,39 +54,33 @@ h2 {
 }
 
 .pokemon-list__item {
-  height: 4em;
+  height: 3.5em;
   border: none;
 }
 .pokemon-list__item:hover, .pokemon-list__item:not(:disabled):not(.disabled):active, .pokemon-list__item:not(:disabled):not(.disabled).active, .pokemon-list__item:not(:disabled):not(.disabled):active:focus, .pokemon-list__item:not(:disabled):not(.disabled).active:focus {
   background-color: #eeeeee;
 }
 
-#modal-container {
-  background: rgba(0, 0, 0, 0.5);
+.modal-dialog {
+  border-radius: 0.4rem;
+  padding: 0.4rem;
+  margin-top: 65px;
+}
+.modal-dialog h2 {
+  margin: 0;
+}
+.modal-dialog p {
+  margin: 0;
 }
 
-.modal {
-  display: inline-block;
+.modal-content {
   background: #eeeeee;
-  width: 100%;
-  max-width: 500px;
-  min-width: calc(12em - 0.8rem);
-  text-align: left;
-  border-radius: 0.4rem;
-  position: relative;
-  height: auto;
+  padding: 1rem;
 }
-.modal-close {
-  float: right;
-  -moz-appearance: none;
-       appearance: none;
-  -webkit-appearance: none;
+
+.modal-header, .modal-body {
   border: none;
-  background: none;
-  color: #666;
-  text-decoration: none;
-  font-size: 150%;
-  font-weight: 700;
+  padding: 0;
 }
 
 .modal-id {
@@ -105,32 +95,5 @@ h2 {
   min-height: 96px;
 }
 
-@-webkit-keyframes loading {
-  0% {
-    color: #999;
-  }
-  100% {
-    color: black;
-  }
-}
-
-@keyframes loading {
-  0% {
-    color: #999;
-  }
-  100% {
-    color: black;
-  }
-}
 /* fix for scrollbar messing up the centering */
-/* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter */
-html {
-  overflow-y: scroll;
-}
-
-@supports (scrollbar-gutter: stable) {
-  html {
-    overflow-y: auto;
-    scrollbar-gutter: stable;
-  }
-}/*# sourceMappingURL=styles.css.map */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter *//*# sourceMappingURL=styles.css.map */

@@ -79,9 +79,9 @@ h2 {
     visibility: hidden;
 }
 
-.hidden {
-    display: none !important;
-}
+// .hidden {
+//     // display: none !important;
+// }
 
 .fixed {
     // position: absolute;
@@ -106,7 +106,7 @@ h2 {
 
 .pokemon-list__item {
     // width: 100%;
-    height: 4em;
+    height: 3.5em;
     // color: $text-color;
     // background-color: $box-color;
     border: none;
@@ -135,7 +135,7 @@ h2 {
     // left: 0;
     // width: 100%;
     // height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    // background: rgba(0, 0, 0, 0.5);
     // z-index: 999;
     // overflow: auto;
     // display: grid;
@@ -143,38 +143,48 @@ h2 {
     // padding: 50px calc(3% + $universal-margin) 50px calc(3% + $universal-margin);
 }
 
-.modal {
-    // margin: auto;
-    display: inline-block;
-    background: $background-color;
-    width: 100%;
-    max-width: 500px;
-    min-width: calc(12em - 2 * $universal-margin);
-    text-align: left;
+.modal-dialog {
+    
+    // display: inline-block;
+    // width: 100%;
+    // max-width: 500px;
+    // min-width: calc(12em - 9 * $universal-margin);
+    // text-align: left;
     border-radius: $block-border-radius;
-    // padding: $box-padding;
-    position: relative;
-    height: auto;
+    padding: $universal-margin;
+    margin-top: 65px;
+    // position: relative;
+    // height: auto;
 
     h2 {
-        // margin: 0;
+        margin: 0;
     }
 
     p {
-        // margin: 0;
+        margin: 0;
     }
 }
 
-.modal-close {
-    float: right;
-    appearance: none;
-    -webkit-appearance: none;
+.modal-content {
+    background: $background-color;
+    padding: 1rem;
+}
+
+.modal-header, .modal-body {
     border: none;
-    background: none;
-    color: #666;
-    text-decoration: none;
-    font-size: 150%;
-    font-weight: 700;
+    padding: 0;
+}
+
+.modal-close {
+    // float: right;
+    // appearance: none;
+    // -webkit-appearance: none;
+    // border: none;
+    // background: none;
+    // color: #666;
+    // text-decoration: none;
+    // font-size: 150%;
+    // font-weight: 700;
 }
 
 .modal-id {
@@ -191,26 +201,26 @@ h2 {
 }
 
 // lil loading animation
-@keyframes loading {
-    0% {
-        color: #999;
-    }
+// @keyframes loading {
+//     0% {
+//         color: #999;
+//     }
 
-    100% {
-        color: $text-color;
-    }
-}
+//     100% {
+//         color: $text-color;
+//     }
+// }
 
 
 /* fix for scrollbar messing up the centering */
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter */
-html {
-    overflow-y: scroll;
-}
+// html {
+//     overflow-y: scroll;
+// }
 
-@supports (scrollbar-gutter: stable) {
-    html {
-        overflow-y: auto;
-        scrollbar-gutter: stable;
-    }
-}
+// @supports (scrollbar-gutter: stable) {
+//     html {
+//         overflow-y: auto;
+//         scrollbar-gutter: stable;
+//     }
+// }
