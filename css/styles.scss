@@ -18,6 +18,16 @@
     font-display: swap;
 }
 
+@mixin gradient-border {
+    $gradient-color1: white;
+    $gradient-color2: white;
+
+    $gradient-border-width: 0.5rem;
+    border: $gradient-border-width solid transparent;
+    background: linear-gradient($box-color, $box-color) padding-box,
+                linear-gradient(160deg, $gradient-color1, $gradient-color2) border-box;
+    border-radius: calc(2 * $block-border-radius);
+}
 
 $background-color: #eeeeee;
 $text-color: black;
@@ -92,6 +102,12 @@ h2 {
 .modal-dialog {
     border-radius: $block-border-radius;
     padding: $universal-margin;
+}
+
+.modal-content {
+    background: $background-color;
+    padding: 1rem;
+
     h2 {
         margin: 0;
     }
@@ -99,11 +115,8 @@ h2 {
     p {
         margin: 0;
     }
-}
 
-.modal-content {
-    background: $background-color;
-    padding: 1rem;
+    @include gradient-border()
 }
 
 .modal-header, .modal-body {

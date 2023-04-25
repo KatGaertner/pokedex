@@ -179,6 +179,46 @@ const modalHandler = (function() {
         document.getElementById('pkmn-height').innerText = pokemon.height;
         document.getElementById('pkmn-types').innerText = types;
         document.getElementById('pkmn-img').src = imgsrc;
+
+        makeColorBorder(pokemon);
+    }
+
+    function makeColorBorder(pokemon) {
+        let box = document.getElementsByClassName('modal-content');
+
+        if (pokemon === null) {
+            box[0].style.background = 'linear-gradient(white, white) padding-box, linear-gradient(160deg, white, white) border-box';
+            return;
+        }
+
+        const colormap = {
+            normal: '#A8A77A',
+            fire: '#EE8130',
+            water: '#6390F0',
+            electric: '#F7D02C',
+            grass: '#7AC74C',
+            ice: '#96D9D6',
+            fighting: '#C22E28',
+            poison: '#A33EA1',
+            ground: '#E2BF65',
+            flying: '#A98FF3',
+            psychic: '#F95587',
+            bug: '#A6B91A',
+            rock: '#B6A136',
+            ghost: '#735797',
+            dragon: '#6F35FC',
+            dark: '#705746',
+            steel: '#B7B7CE',
+            fairy: '#D685AD'
+        };
+
+        let colors = pokemon.types.map((x) => colormap[x]);
+        let bg = '#eeeeee';
+        if (colors.length === 1) {
+            box[0].style.background = `linear-gradient(${bg}, ${bg}) padding-box, linear-gradient(160deg, ${colors[0]}, ${colors[0]}) border-box`;
+        } else if (colors.length === 2) {
+            box[0].style.background = `linear-gradient(${bg}, ${bg}) padding-box, linear-gradient(160deg, ${colors[0]}, ${colors[1]}) border-box`;
+        }
     }
 
     function closeModal() {

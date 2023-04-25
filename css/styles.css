@@ -65,16 +65,19 @@ h2 {
   border-radius: 0.4rem;
   padding: 0.4rem;
 }
-.modal-dialog h2 {
-  margin: 0;
-}
-.modal-dialog p {
-  margin: 0;
-}
 
 .modal-content {
   background: #eeeeee;
   padding: 1rem;
+  border: 0.5rem solid transparent;
+  background: linear-gradient(white, white) padding-box, linear-gradient(160deg, white, white) border-box;
+  border-radius: 0.8rem;
+}
+.modal-content h2 {
+  margin: 0;
+}
+.modal-content p {
+  margin: 0;
 }
 
 .modal-header, .modal-body {
