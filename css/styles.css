@@ -12,57 +12,31 @@
   font-style: normal;
   font-display: swap;
 }
-html {
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
 body {
-  background-color: #eee;
+  background-color: #eeeeee;
   font-family: "Rubik", sans-serif;
-  font-size: 110%;
-  padding: 0 3%;
 }
 
-.page-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0.4rem;
-  border-bottom: 2px solid black;
-  background-color: #eee;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  padding-top: 2vh;
+.icon {
+  height: 2rem;
 }
 
-#search-icon {
-  height: 1.5em;
-  margin-top: 10%;
-}
-
-h1 {
-  font-size: 200%;
-  margin: 0.5em 0;
+.h1 {
+  font-weight: 700;
+  margin: 0;
   letter-spacing: -0.1rem;
 }
 
 h2 {
-  font-size: 150%;
-  margin: 0.5em 0;
+  font-weight: 700;
 }
 
 #loading-message {
   font-weight: 700;
-  -webkit-animation: 1s loading infinite alternate ease-out;
-          animation: 1s loading infinite alternate ease-out;
+}
+
+.hidden-message {
+  visibility: hidden;
 }
 
 .hidden {
@@ -70,66 +44,42 @@ h2 {
 }
 
 .fixed {
-  position: absolute;
   height: 100%;
   height: 100dvh;
-  width: 94%;
+  width: 100%;
   overflow: hidden;
 }
 
 #pokemon-list {
-  list-style-type: none;
-  padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
-  margin: 0.4rem 0 0 0;
-}
-#pokemon-list li {
-  margin: 0.4rem;
+  grid-gap: 0.4rem;
+  margin-top: 0.4rem;
 }
 
 .pokemon-list__item {
-  width: 100%;
   height: 4em;
-  color: black;
-  background-color: white;
   border: none;
-  border-radius: 0.4rem;
-  padding: 1em;
+}
+.pokemon-list__item:hover, .pokemon-list__item:not(:disabled):not(.disabled):active, .pokemon-list__item:not(:disabled):not(.disabled).active, .pokemon-list__item:not(:disabled):not(.disabled):active:focus, .pokemon-list__item:not(:disabled):not(.disabled).active:focus {
+  background-color: #eeeeee;
 }
 
 #modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  overflow: auto;
-  display: grid;
-  text-align: center;
-  padding: 50px calc(3% + 0.4rem) 50px calc(3% + 0.4rem);
 }
 
 .modal {
-  margin: auto;
   display: inline-block;
-  background: #eee;
+  background: #eeeeee;
   width: 100%;
   max-width: 500px;
   min-width: calc(12em - 0.8rem);
   text-align: left;
   border-radius: 0.4rem;
-  padding: 1em;
+  position: relative;
+  height: auto;
 }
-.modal h2 {
-  margin: 0;
-}
-.modal p {
-  margin: 0;
-}
-
 .modal-close {
   float: right;
   -moz-appearance: none;
@@ -152,7 +102,6 @@ h2 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.5em;
   min-height: 96px;
 }
 

@@ -77,12 +77,12 @@ const pokemonRepo = (function() {
 
     function hideLoadingMessage() {
         let elem = document.getElementById('loading-message');
-        elem.classList.add('hidden');
+        elem.classList.add('hidden-message');
     }
 
     function showLoadingMessage() {
         let elem = document.getElementById('loading-message');
-        elem.classList.remove('hidden');
+        elem.classList.remove('hidden-message');
     }
 
     return {

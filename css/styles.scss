@@ -19,7 +19,7 @@
 }
 
 
-$background-color: #eee;
+$background-color: #eeeeee;
 $text-color: black;
 $box-color: white;
 $universal-margin: 0.4rem;
@@ -30,55 +30,53 @@ $page-padding: 3%;
 
 
 
-html {
-    box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
-
 body {
     background-color: $background-color;
     font-family: 'Rubik', sans-serif;
-    font-size: 110%;
-    padding: 0 $page-padding;
+    // font-size: 110%;
+    // color: $text-color;
+    // padding: 0 $page-padding;
 }
 
 .page-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 $universal-margin;
-    border-bottom: 2px solid black;
-    background-color: $background-color;
-    position: sticky;
-    top: 0;
-    padding-top: 2vh;
+    //     display: flex;
+    //     flex-direction: row;
+    //     align-items: center;
+    //     justify-content: space-between;
+    // padding: 0 $universal-margin;
+    // border-bottom: 2px solid black;
+    // background-color: $background-color;
+        // position: sticky;
+        // top: 0;
+    //     padding-top: 2vh;
+
 }
 
-#search-icon {
-    height: 1.5em;
-    margin-top: 10%;
+.icon {
+    height: 2rem;
+    // margin-top: 10%;
 }
 
-h1 {
-    font-size: 200%;
-    margin: 0.5em 0;
+.h1 {
+    // font-size: 200%;
+    font-weight: 700;
+    margin: 0;
     letter-spacing: -0.1rem;
 }
 
 h2 {
-    font-size: 150%;
-    margin: 0.5em 0;
+    // font-size: 150%;
+    font-weight: 700;
+    // margin: 0.5em 0;
 }
 
 #loading-message {
     font-weight: 700;
-    animation: 1s loading infinite alternate ease-out;
+    // animation: 1s loading infinite alternate ease-out;
+}
+
+.hidden-message {
+    visibility: hidden;
 }
 
 .hidden {
@@ -86,51 +84,67 @@ h2 {
 }
 
 .fixed {
-    position: absolute;
+    // position: absolute;
     height: 100%;
     height: 100dvh; // dynamic view height for browsers that support it
-    width: calc(100% - 2* $page-padding);
+    width: 100%;
     overflow: hidden;
 }
 
 #pokemon-list {
-    list-style-type: none;
-    padding: 0;
+    // list-style-type: none;
+    // padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
-    margin: $universal-margin 0 0 0;
-    li {
-        margin: $universal-margin;
-    }
+    grid-gap: $universal-margin;
+    margin-top: $universal-margin;
+    // margin: $universal-margin 0 0 0;
+    // li {
+    // margin: $universal-margin;
+    // }
 }
 
 .pokemon-list__item {
-    width: 100%;
+    // width: 100%;
     height: 4em;
-    color: $text-color;
-    background-color: $box-color;
+    // color: $text-color;
+    // background-color: $box-color;
     border: none;
-    border-radius: $block-border-radius;
-    padding: $box-padding;
+    // border-radius: $block-border-radius;
+    // box-shadow: none;
+
+    // padding: $box-padding;
+    &:hover,
+    // &:focus,
+    // &:active
+    // &:focus-visible
+    // &:checked,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled).active:focus
+    {
+        background-color: $background-color;
+    }
 }
 
 
 #modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+    // height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    overflow: auto;
-    display: grid;
-    text-align: center;
-    padding: 50px calc(3% + $universal-margin) 50px calc(3% + $universal-margin);
+    // z-index: 999;
+    // overflow: auto;
+    // display: grid;
+    // text-align: center;
+    // padding: 50px calc(3% + $universal-margin) 50px calc(3% + $universal-margin);
 }
 
 .modal {
-    margin: auto;
+    // margin: auto;
     display: inline-block;
     background: $background-color;
     width: 100%;
@@ -138,12 +152,16 @@ h2 {
     min-width: calc(12em - 2 * $universal-margin);
     text-align: left;
     border-radius: $block-border-radius;
-    padding: $box-padding;
+    // padding: $box-padding;
+    position: relative;
+    height: auto;
+
     h2 {
-        margin: 0;
+        // margin: 0;
     }
+
     p {
-        margin: 0;
+        // margin: 0;
     }
 }
 
@@ -168,7 +186,7 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0.5em;
+    // margin-top: 0.5em;
     min-height: 96px;
 }
 
@@ -177,6 +195,7 @@ h2 {
     0% {
         color: #999;
     }
+
     100% {
         color: $text-color;
     }
