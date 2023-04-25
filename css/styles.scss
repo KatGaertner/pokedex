@@ -33,88 +33,41 @@ $page-padding: 3%;
 body {
     background-color: $background-color;
     font-family: 'Rubik', sans-serif;
-    // font-size: 110%;
-    // color: $text-color;
-    // padding: 0 $page-padding;
-}
-
-.page-header {
-    //     display: flex;
-    //     flex-direction: row;
-    //     align-items: center;
-    //     justify-content: space-between;
-    // padding: 0 $universal-margin;
-    // border-bottom: 2px solid black;
-    // background-color: $background-color;
-        // position: sticky;
-        // top: 0;
-    //     padding-top: 2vh;
-
 }
 
 .icon {
     height: 2rem;
-    // margin-top: 10%;
 }
 
 .h1 {
-    // font-size: 200%;
     font-weight: 700;
     margin: 0;
     letter-spacing: -0.1rem;
 }
 
 h2 {
-    // font-size: 150%;
     font-weight: 700;
-    // margin: 0.5em 0;
 }
 
 #loading-message {
     font-weight: 700;
-    // animation: 1s loading infinite alternate ease-out;
 }
 
 .hidden {
-    // visibility: hidden;
     display: none !important;
 }
 
-// .hidden {
-//     // display: none !important;
-// }
-
-// .fixed {
-//     // position: absolute;
-//     height: 100%;
-//     height: 100dvh; // dynamic view height for browsers that support it
-//     width: 100%;
-//     overflow: hidden;
-// }
-
 #pokemon-list {
-    // list-style-type: none;
-    // padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
     grid-gap: $universal-margin;
     margin-top: $universal-margin;
-    // margin: $universal-margin 0 0 0;
-    // li {
-    // margin: $universal-margin;
-    // }
 }
 
 .pokemon-list__item {
-    // width: 100%;
     height: 3.5em;
-    // color: $text-color;
-    // background-color: $box-color;
     border: none;
-    // border-radius: $block-border-radius;
-    // box-shadow: none;
 
-    // padding: $box-padding;
     &:hover,
     // &:focus,
     // &:active
@@ -133,33 +86,9 @@ h2 {
     height: auto;
 }
 
-#modal-container {
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-    // width: 100%;
-    // height: 100%;
-    // background: rgba(0, 0, 0, 0.5);
-    // z-index: 999;
-    // overflow: auto;
-    // display: grid;
-    // text-align: center;
-    // padding: 50px calc(3% + $universal-margin) 50px calc(3% + $universal-margin);
-}
-
 .modal-dialog {
-    
-    // display: inline-block;
-    // width: 100%;
-    // max-width: 500px;
-    // min-width: calc(12em - 9 * $universal-margin);
-    // text-align: left;
     border-radius: $block-border-radius;
     padding: $universal-margin;
-    // margin-top: 65px;
-    // position: relative;
-    // height: auto;
-
     h2 {
         margin: 0;
     }
@@ -179,18 +108,6 @@ h2 {
     padding: 0;
 }
 
-.modal-close {
-    // float: right;
-    // appearance: none;
-    // -webkit-appearance: none;
-    // border: none;
-    // background: none;
-    // color: #666;
-    // text-decoration: none;
-    // font-size: 150%;
-    // font-weight: 700;
-}
-
 .modal-id {
     color: #666;
 }
@@ -200,31 +117,5 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    // margin-top: 0.5em;
     min-height: 96px;
 }
-
-// lil loading animation
-// @keyframes loading {
-//     0% {
-//         color: #999;
-//     }
-
-//     100% {
-//         color: $text-color;
-//     }
-// }
-
-
-/* fix for scrollbar messing up the centering */
-/* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter */
-// html {
-//     overflow-y: scroll;
-// }
-
-// @supports (scrollbar-gutter: stable) {
-//     html {
-//         overflow-y: auto;
-//         scrollbar-gutter: stable;
-//     }
-// }

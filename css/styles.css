@@ -89,7 +89,4 @@ h2 {
   align-items: center;
   justify-content: space-between;
   min-height: 96px;
-}
-
-/* fix for scrollbar messing up the centering */
-/* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter *//*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */
