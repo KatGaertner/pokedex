@@ -27,9 +27,9 @@
       <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
         <form class="form-inline float-right" role="search">
           <span id="searchForm" class="mr-1">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="searchbar" oninput="pokemonRepo.searchPokemon()">
           </span>
-          <button class="btn btn-light" type="button">
+          <button class="btn btn-light" type="button" id="searchbutton" onclick="pokemonRepo.searchPokemon()">
             <img src="img/search.svg" class="icon">
           </button>
         </form>
