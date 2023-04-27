@@ -136,36 +136,42 @@ const modalHandler = (function() {
 
     function createModalContent() {
         let modalDialog = `
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-              <div class="modal-content pkmn-modal">
-                <div class="modal-header">
-                  <div class="modal-title">
-                    <div>
-                      <h2 id="pkmn-name" class="pkmn-data"></h2>
-                      <p id="pkmn-id" class="modal-id pkmn-data"></p>
-                    </div>
-                  </div>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="modal-flex">
-                    <p>
-                      <span id="pkmn-height" class="pkmn-data"></span><br>
-                      <span id="pkmn-types" class="pkmn-data"></span>
-                    </p>
-                    <img src="" id="pkmn-img" title="Pokemon sprite">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="row align-items-center">
+            <div class="pkmn-modal col-12 col-md-8 offset-md-1 order-md-2">
+              <div class="modal-header">
+                <div class="modal-title">
+                  <div>
+                    <h2 id="pkmn-name" class="pkmn-data"></h2>
+                    <p id="pkmn-id" class="modal-id pkmn-data"></p>
                   </div>
                 </div>
-                </div>
-                <div class="mt-2">
-                    <button class="btn btn-light" type="button" onclick="modalHandler.swipeLeft()">&larr;</button>
-                    <button class="btn btn-light float-right" type="button" onclick="modalHandler.swipeRight()">&rarr;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="modal-flex">
+                  <p>
+                    <span id="pkmn-height" class="pkmn-data"></span><br>
+                    <span id="pkmn-types" class="pkmn-data"></span>
+                  </p>
+                  <img src="" id="pkmn-img" title="Pokemon sprite">
                 </div>
               </div>
-            </div>`;
+            </div>
+            <button class="btn btn-light mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button"
+              onclick="modalHandler.swipeLeft()" aria-label="previous Pokemon">
+              <span aria-hidden="true">&#129152;</span>
+            </button>
+            <button class="btn btn-light float-right mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3"
+              type="button" onclick="modalHandler.swipeRight()" aria-label="next Pokemon">
+              <span aria-hidden="true">&#129154;</span>
+            </button>
+          </div>
+        </div>
+      </div>`;
 
         $('#modal-container').append(modalDialog);
     }

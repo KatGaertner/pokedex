@@ -105,6 +105,10 @@ h2 {
 .modal-content {
     background: none;
     border: none;
+
+    .row {
+        margin:0;
+    }
 }
 
 .pkmn-modal {

@@ -71,6 +71,9 @@ h2 {
   background: none;
   border: none;
 }
+.modal-content .row {
+  margin: 0;
+}
 
 .pkmn-modal {
   background: #eeeeee;
