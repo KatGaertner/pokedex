@@ -142,8 +142,8 @@ const modalHandler = (function() {
                 <div class="modal-header">
                   <div class="modal-title">
                     <div>
-                      <h2 id="pkmn-name"></h2>
-                      <p id="pkmn-id" class="modal-id"></p>
+                      <h2 id="pkmn-name" class="pkmn-data"></h2>
+                      <p id="pkmn-id" class="modal-id pkmn-data"></p>
                     </div>
                   </div>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -153,10 +153,8 @@ const modalHandler = (function() {
                 <div class="modal-body">
                   <div class="modal-flex">
                     <p>
-                      <span>Height:</span>
-                      <span id="pkmn-height"></span><br>
-                      <span>Types:</span>
-                      <span id="pkmn-types"></span>
+                      <span id="pkmn-height" class="pkmn-data"></span><br>
+                      <span id="pkmn-types" class="pkmn-data"></span>
                     </p>
                     <img src="" id="pkmn-img" title="Pokemon sprite">
                   </div>
@@ -176,8 +174,8 @@ const modalHandler = (function() {
 
         document.getElementById('pkmn-name').innerText = pokemon.name;
         document.getElementById('pkmn-id').innerText = `#${pokemon.id}`;
-        document.getElementById('pkmn-height').innerText = pokemon.height;
-        document.getElementById('pkmn-types').innerText = types;
+        document.getElementById('pkmn-height').innerText = `Height: ${pokemon.height}`;
+        document.getElementById('pkmn-types').innerText = `Types: ${types}`;
         document.getElementById('pkmn-img').src = imgsrc;
 
         makeColorBorder(pokemon);
@@ -226,10 +224,9 @@ const modalHandler = (function() {
     }
 
     function removeData() {
-        document.getElementById('pkmn-name').innerText = '';
-        document.getElementById('pkmn-id').innerText = '#';
-        document.getElementById('pkmn-height').innerText = '';
-        document.getElementById('pkmn-types').innerText = '';
+        $('.pkmn-data').each((nr, el) => {
+            el.innerText = '\u00a0';
+        });
         document.getElementById('pkmn-img').src = '';
     }
 
