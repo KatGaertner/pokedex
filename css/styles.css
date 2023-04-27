@@ -114,6 +114,11 @@ h2 {
   min-height: 96px;
 }
 
+#pkmn-text {
+  font-size: 0.9rem;
+  min-height: 6.75rem;
+}
+
 .modalButton {
   padding: 0;
 }/*# sourceMappingURL=styles.css.map */

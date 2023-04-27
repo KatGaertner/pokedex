@@ -7,7 +7,8 @@ const pokemonRepo = (function() {
     function parsePokemon(item) {
         let pokemon = {
             name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-            detailsUrl: item.url
+            detailsUrl: item.url,
+            speciesUrl: item.url.split('pokemon').join('pokemon-species')
         };
         pokemonList.push(pokemon);
     }
@@ -18,6 +19,12 @@ const pokemonRepo = (function() {
         pokemon.height = data.height;
         pokemon.types = data.types.map((x) => x.type.name);
         pokemon.id = data.id;
+    }
+
+    function parseFlavorText(data, pokemon) {
+        let data1 = data.flavor_text_entries.filter((x) => x.language.name === 'en');
+        let data2 = data1.map((x) => x.flavor_text);
+        pokemon.flavorText = data2.map((el) => el.replace(/\s/g, ' '));
     }
 
     function loadList() {
@@ -39,6 +46,20 @@ const pokemonRepo = (function() {
             .then((response) => response.json())
             .then((data) => {
                 parseDetails(data, pokemon);
+                // hideLoadingMessage();
+            })
+            .catch((error) => {
+                console.error(error);
+                hideLoadingMessage();
+            });
+    }
+
+    function loadFlavorText(pokemon) {
+        showLoadingMessage();
+        return fetch(pokemon.speciesUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                parseFlavorText(data, pokemon);
                 hideLoadingMessage();
             })
             .catch((error) => {
@@ -111,7 +132,8 @@ const pokemonRepo = (function() {
         showLoadingMessage,
         hideLoadingMessage,
         loadDetails,
-        searchPokemon
+        searchPokemon,
+        loadFlavorText
     };
 })();
 
@@ -127,6 +149,7 @@ const modalHandler = (function() {
 
         if (!pokemon.height) {
             pokemonRepo.loadDetails(pokemon)
+                .then(() => pokemonRepo.loadFlavorText(pokemon))
                 .then(() => updateModalContent(pokemon));
         } else {
             updateModalContent(pokemon);
@@ -140,6 +163,10 @@ const modalHandler = (function() {
             imgurl = pokemon.imageUrlshiny;
         }
         return imgurl;
+    }
+
+    function getFlavorNr(pokemon) {
+        return Math.floor(Math.random() * pokemon.flavorText.length);
     }
 
     function createModalContent() {
@@ -167,6 +194,7 @@ const modalHandler = (function() {
                   </p>
                   <img src="" id="pkmn-img" title="Pokemon sprite">
                 </div>
+                <p id="pkmn-text" class="pkmn-data"></p>
               </div>
             </div>
             <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button"
@@ -193,12 +221,14 @@ const modalHandler = (function() {
 
         let types = pokemon.types.join(', ');
         let imgsrc = loadImage(pokemon);
+        let flavorNr = getFlavorNr(pokemon);
 
         document.getElementById('pkmn-name').innerText = pokemon.name;
         document.getElementById('pkmn-id').innerText = `#${pokemon.id}`;
         document.getElementById('pkmn-height').innerText = `Height: ${pokemon.height}`;
         document.getElementById('pkmn-types').innerText = `Types: ${types}`;
         document.getElementById('pkmn-img').src = imgsrc;
+        document.getElementById('pkmn-text').innerText = pokemon.flavorText[flavorNr];
 
         makeColorBorder(pokemon);
     }
