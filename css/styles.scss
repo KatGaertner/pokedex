@@ -19,13 +19,8 @@
 }
 
 @mixin gradient-border {
-    $gradient-color1: white;
-    $gradient-color2: white;
-
     $gradient-border-width: 0.5rem;
     border: $gradient-border-width solid transparent;
-    background: linear-gradient($box-color, $box-color) padding-box,
-                linear-gradient(160deg, $gradient-color1, $gradient-color2) border-box;
     border-radius: calc(2 * $block-border-radius);
 }
 
