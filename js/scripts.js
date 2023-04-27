@@ -139,7 +139,7 @@ const modalHandler = (function() {
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="row align-items-center">
-            <div class="pkmn-modal col-12 col-md-8 offset-md-1 order-md-2">
+            <div class="col-12 col-md-8 offset-md-1 order-md-2" id="pkmn-modal">
               <div class="modal-header">
                 <div class="modal-title">
                   <div>
@@ -192,10 +192,10 @@ const modalHandler = (function() {
     }
 
     function makeColorBorder(pokemon) {
-        let box = document.getElementsByClassName('pkmn-modal');
+        let box = document.getElementById('pkmn-modal');
 
         if (pokemon === null) {
-            box[0].style.background = 'linear-gradient(white, white) padding-box, linear-gradient(160deg, white, white) border-box';
+            box.style.background = 'linear-gradient(white, white) padding-box, linear-gradient(160deg, white, white) border-box';
             return;
         }
 
@@ -223,9 +223,9 @@ const modalHandler = (function() {
         let colors = pokemon.types.map((x) => colormap[x]);
         let bg = '#eeeeee';
         if (colors.length === 1) {
-            box[0].style.background = `linear-gradient(${bg}, ${bg}) padding-box, linear-gradient(160deg, ${colors[0]}, ${colors[0]}) border-box`;
+            box.style.background = `linear-gradient(${bg}, ${bg}) padding-box, linear-gradient(160deg, ${colors[0]}, ${colors[0]}) border-box`;
         } else if (colors.length === 2) {
-            box[0].style.background = `linear-gradient(${bg}, ${bg}) padding-box, linear-gradient(160deg, ${colors[0]}, ${colors[1]}) border-box`;
+            box.style.background = `linear-gradient(${bg}, ${bg}) padding-box, linear-gradient(160deg, ${colors[0]}, ${colors[1]}) border-box`;
         }
     }
 

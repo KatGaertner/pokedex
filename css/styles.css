@@ -75,17 +75,17 @@ h2 {
   margin: 0;
 }
 
-.pkmn-modal {
+#pkmn-modal {
   background: #eeeeee;
   padding: 1rem;
   border: 0.5rem solid transparent;
   background: linear-gradient(white, white) padding-box, linear-gradient(160deg, white, white) border-box;
   border-radius: 0.8rem;
 }
-.pkmn-modal h2 {
+#pkmn-modal h2 {
   margin: 0;
 }
-.pkmn-modal p {
+#pkmn-modal p {
   margin: 0;
 }
 
