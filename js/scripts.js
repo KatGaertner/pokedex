@@ -109,10 +109,9 @@ const pokemonRepo = (function() {
 
 
 const modalHandler = (function() {
-    // list index (for pokemonRepo) of the pokemon that is currently shown in the modal
-    let modalShownIndex = null;
-
     const modalContainer = document.getElementById('modal-container');
+    let currentList = pokemonRepo.getAll();
+    let listIndex = null;
 
     function updateDetails(pokemon) {
         removeData();
@@ -172,8 +171,7 @@ const modalHandler = (function() {
     }
 
     function updateModalContent(pokemon) {
-        // list index for pokeRepo = actual pokemon ID - 1
-        modalShownIndex = pokemon.id - 1;
+        listIndex = currentList.indexOf(pokemon);
 
         let types = pokemon.types.join(', ');
         let imgsrc = loadImage(pokemon);
@@ -237,17 +235,17 @@ const modalHandler = (function() {
     }
 
     function swipeLeft() {
-        let newIndex = modalShownIndex - 1;
-        let pokemon = pokemonRepo.getAll()[newIndex];
-        if (pokemonRepo.getAll()[newIndex]) {
+        let newIndex = listIndex - 1;
+        let pokemon = currentList[newIndex];
+        if (currentList[newIndex]) {
             updateDetails(pokemon);
         }
     }
 
     function swipeRight() {
-        let newIndex = modalShownIndex + 1;
-        let pokemon = pokemonRepo.getAll()[newIndex];
-        if (pokemonRepo.getAll()[newIndex]) {
+        let newIndex = listIndex + 1;
+        let pokemon = currentList[newIndex];
+        if (currentList[newIndex]) {
             updateDetails(pokemon);
         }
     }
@@ -273,6 +271,7 @@ const modalHandler = (function() {
             let val = e.target.value;
             let list = pokemonRepo.search('name', val);
             pokemonRepo.display(list);
+            currentList = list;
         });
     }
 
