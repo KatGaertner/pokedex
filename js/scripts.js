@@ -201,12 +201,6 @@ const modalHandler = (function() {
 
     function makeColorBorder(pokemon) {
         let box = document.getElementById('pkmn-modal');
-
-        if (pokemon === null) {
-            box.style.background = 'linear-gradient(white, white) padding-box, linear-gradient(160deg, white, white) border-box';
-            return;
-        }
-
         const colormap = {
             normal: '#A8A77A',
             fire: '#EE8130',
