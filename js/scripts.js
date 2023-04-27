@@ -139,6 +139,7 @@ const modalHandler = (function() {
         let modalDialog = `
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
+              <div class="modal-content pkmn-modal">
                 <div class="modal-header">
                   <div class="modal-title">
                     <div>
@@ -158,6 +159,11 @@ const modalHandler = (function() {
                     </p>
                     <img src="" id="pkmn-img" title="Pokemon sprite">
                   </div>
+                </div>
+                </div>
+                <div class="mt-2">
+                    <button class="btn btn-light" type="button" onclick="modalHandler.swipeLeft()">&larr;</button>
+                    <button class="btn btn-light float-right" type="button" onclick="modalHandler.swipeRight()">&rarr;</button>
                 </div>
               </div>
             </div>`;
@@ -182,7 +188,7 @@ const modalHandler = (function() {
     }
 
     function makeColorBorder(pokemon) {
-        let box = document.getElementsByClassName('modal-content');
+        let box = document.getElementsByClassName('pkmn-modal');
 
         if (pokemon === null) {
             box[0].style.background = 'linear-gradient(white, white) padding-box, linear-gradient(160deg, white, white) border-box';
@@ -273,7 +279,9 @@ const modalHandler = (function() {
     return {
         addInitialEventListeners,
         updateDetails,
-        createModalContent
+        createModalContent,
+        swipeLeft,
+        swipeRight
     };
 })();
 

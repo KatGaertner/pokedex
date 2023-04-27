@@ -103,6 +103,11 @@ h2 {
 }
 
 .modal-content {
+    background: none;
+    border: none;
+}
+
+.pkmn-modal {
     background: $background-color;
     padding: 1rem;
 
@@ -117,9 +122,14 @@ h2 {
     @include gradient-border()
 }
 
-.modal-header, .modal-body {
+.modal-header, .modal-body, .modal-footer {
     border: none;
     padding: 0;
+}
+
+.modal-footer {
+    margin-top: 1em;
+    justify-content: space-between;
 }
 
 .modal-id {
