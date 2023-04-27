@@ -46,6 +46,10 @@ body {
     height: 2rem;
 }
 
+.turn180 {
+    transform: rotate(180deg)
+}
+
 .h1 {
     font-weight: 700;
     margin: 0;
@@ -146,4 +150,8 @@ h2 {
     align-items: center;
     justify-content: space-between;
     min-height: 96px;
+}
+
+.modalButton {
+    padding: 0;
 }

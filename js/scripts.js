@@ -169,13 +169,17 @@ const modalHandler = (function() {
                 </div>
               </div>
             </div>
-            <button class="btn btn-light mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button"
+            <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button"
               onclick="modalHandler.swipeLeft()" aria-label="previous Pokemon">
-              <span aria-hidden="true">&#129152;</span>
+              <span aria-hidden="true">
+                <img src="img/chevron-right.svg" class="icon turn180">
+              </span>
             </button>
-            <button class="btn btn-light float-right mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3"
+            <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3"
               type="button" onclick="modalHandler.swipeRight()" aria-label="next Pokemon">
-              <span aria-hidden="true">&#129154;</span>
+              <span aria-hidden="true">
+              <img src="img/chevron-right.svg" class="icon">
+              </span>
             </button>
           </div>
         </div>
