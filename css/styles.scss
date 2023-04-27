@@ -30,12 +30,9 @@
 }
 
 $background-color: #eeeeee;
-$text-color: black;
 $box-color: white;
 $universal-margin: 0.4rem;
 $block-border-radius: 0.4rem;
-$box-padding: 1em;
-$page-padding: 3%;
 
 
 
@@ -93,13 +90,14 @@ h2 {
 }
 
 .modal {
-    height: auto;
+    margin-top: 70px;
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: url('/media/blur.svg#blur');
     backdrop-filter: blur(2px);
 }
 
 .modal-dialog {
+    margin-top: -70px;
     border-radius: $block-border-radius;
     padding: $universal-margin;
 }

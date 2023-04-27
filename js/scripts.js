@@ -158,7 +158,7 @@ const modalHandler = (function() {
                       <span>Types:</span>
                       <span id="pkmn-types"></span>
                     </p>
-                    <img src="" id="pkmn-img">
+                    <img src="" id="pkmn-img" title="Pokemon sprite">
                   </div>
                 </div>
               </div>
