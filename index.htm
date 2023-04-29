@@ -12,10 +12,6 @@
 </head>
 
 <body>
-  <style>
-    .hidden {display: none !important;}
-  </style>
-
   <div class="page-container">
     <nav class="navbar navbar-expand-sm bg-light border-bottom sticky-top">
       <div class="navbar-header mb-2">
@@ -24,11 +20,11 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <button class="navbar-toggler btn btn-light hidden" type="button" data-toggle="collapse" data-target="#navbarNav"
+      <button class="navbar-toggler btn btn-light" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <img src="img/menu.svg" class="icon">
       </button>
-      <div class="collapse navbar-collapse flex-row-reverse hidden" id="navbarNav">
+      <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
         <form class="form-inline float-right" role="search">
           <span id="searchForm" class="mr-1">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="searchbar" oninput="pokemonRepo.searchPokemon()">
@@ -40,54 +36,13 @@
       </div>
     </nav>
 
-    <main class="container-fluid hidden" role="main" id="main">
+    <main class="container-fluid" role="main">
       <div class="row">
         <div class="col">
           <ul id="pokemon-list" class="list-unstyled list-group">
           </ul>
 
           <div id="modal-container" class="modal" aria-labelledby="pkmn-name" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-              <div class="modal-content">
-                <div class="row align-items-center">
-                  <div class="col-12 col-md-8 offset-md-1 order-md-2" id="pkmn-modal">
-                    <div class="modal-header">
-                      <div class="modal-title">
-                        <div>
-                          <h2 id="pkmn-name" class="pkmn-data"></h2>
-                          <p id="pkmn-id" class="modal-id pkmn-data"></p>
-                        </div>
-                      </div>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="modal-flex">
-                        <p>
-                          <span id="pkmn-height" class="pkmn-data"></span><br>
-                          <span id="pkmn-types" class="pkmn-data"></span>
-                        </p>
-                        <img src="#" id="pkmn-img" title="Pokemon sprite">
-                      </div>
-                      <p id="pkmn-text" class="pkmn-data"></p>
-                    </div>
-                  </div>
-                  <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button"
-                    onclick="modalHandler.swipeLeft()" aria-label="previous Pokemon">
-                    <span aria-hidden="true">
-                      <img src="img/chevron-right.svg" class="icon turn180">
-                    </span>
-                  </button>
-                  <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3"
-                    type="button" onclick="modalHandler.swipeRight()" aria-label="next Pokemon">
-                    <span aria-hidden="true">
-                    <img src="img/chevron-right.svg" class="icon">
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
