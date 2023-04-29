@@ -67,11 +67,8 @@ const pokemonRepo = (function() {
     }
 
     function search(key, value) {
-        if (typeof value === 'string') {
-            let searchString = value.toLowerCase();
-            return pokemonList.filter((pokemon) => pokemon[key].toLowerCase().includes(searchString));
-        }
-        return pokemonList.filter((pokemon) => pokemon[key] === value);
+        let searchString = value.toLowerCase();
+        return pokemonList.filter((pokemon) => pokemon[key].toLowerCase().includes(searchString));
     }
 
     function searchPokemon() {
