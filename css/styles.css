@@ -59,16 +59,14 @@ h2 {
 }
 
 .modal {
-  margin-top: 70px;
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: url("/media/blur.svg#blur");
   backdrop-filter: blur(2px);
 }
 
 .modal-dialog {
-  margin-top: -70px;
   border-radius: 0.4rem;
-  padding: 0.4rem;
+  padding: 0 0.4rem;
 }
 
 .modal-content {

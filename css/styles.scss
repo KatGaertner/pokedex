@@ -89,16 +89,14 @@ h2 {
 }
 
 .modal {
-    margin-top: 70px;
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: url('/media/blur.svg#blur');
     backdrop-filter: blur(2px);
 }
 
 .modal-dialog {
-    margin-top: -70px;
     border-radius: $block-border-radius;
-    padding: $universal-margin;
+    padding: 0 $universal-margin;
 }
 
 .modal-content {

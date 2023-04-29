@@ -193,7 +193,7 @@ const modalHandler = (function() {
                     <span id="pkmn-height" class="pkmn-data"></span><br>
                     <span id="pkmn-types" class="pkmn-data"></span>
                   </p>
-                  <img src="" id="pkmn-img" title="Pokemon sprite">
+                  <img src="img/empty.png" id="pkmn-img" title="Pokemon sprite">
                 </div>
                 <p id="pkmn-text" class="pkmn-data"></p>
               </div>
@@ -273,7 +273,7 @@ const modalHandler = (function() {
         $('.pkmn-data').each((nr, el) => {
             el.innerText = '\u00a0';
         });
-        document.getElementById('pkmn-img').src = '';
+        document.getElementById('pkmn-img').src = 'img/empty.png';
     }
 
     function swipeLeft() {
