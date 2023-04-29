@@ -117,6 +117,10 @@ h2 {
   min-height: 6.75rem;
 }
 
+.close {
+  font-size: 200%;
+}
+
 .modalButton {
   padding: 0;
 }/*# sourceMappingURL=styles.css.map */
