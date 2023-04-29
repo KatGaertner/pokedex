@@ -144,12 +144,12 @@ const pokemonRepo = (function() {
     }
 
     return {
-        getAll:getAll,
-        display:display,
-        loadList:loadList,
-        loadDetails:loadDetails,
-        searchPokemon:searchPokemon,
-        loadFlavorText:loadFlavorText
+        getAll: getAll,
+        display: display,
+        loadList: loadList,
+        loadDetails: loadDetails,
+        searchPokemon: searchPokemon,
+        loadFlavorText: loadFlavorText
     };
 })();
 
@@ -200,12 +200,12 @@ const modalHandler = (function() {
         let types = pokemon.types.join(', ');
         let imgsrc = loadImage(pokemon);
         let flavorNr = getFlavorNr(pokemon);
-        src.getElementById('pkmn-name').textContent = pokemon.name;
-        src.getElementById('pkmn-id').textContent = `#${pokemon.id}`;
-        src.getElementById('pkmn-height').textContent = `Height: ${pokemon.height}`;
-        src.getElementById('pkmn-types').textContent = `Types: ${types}`;
+        src.getElementById('pkmn-name').innerText = pokemon.name;
+        src.getElementById('pkmn-id').innerText = ['#', pokemon.id].join('');
+        src.getElementById('pkmn-height').innerText = ['Height: ', pokemon.height].join('');
+        src.getElementById('pkmn-types').innerText = ['Types: ', types].join('');
         src.getElementById('pkmn-img').src = imgsrc;
-        src.getElementById('pkmn-text').textContent = pokemon.flavorText[flavorNr];
+        src.getElementById('pkmn-text').innerText = pokemon.flavorText[flavorNr];
     }
 
     function updateModalContent(pokemon) {
@@ -263,7 +263,7 @@ const modalHandler = (function() {
 
     function removeData() {
         $('.pkmn-data').each(function(nr, el) {
-            el.innerText = '\u00a0';
+            el.innerText = '\u00a0'; // non-breaking whitespace
         });
         if (document.getElementById('pkmn-img')) {
             document.getElementById('pkmn-img').src = 'img/empty.png';
@@ -302,8 +302,6 @@ const modalHandler = (function() {
         }
     }
 
-    // event listeners
-
     function addInitialEventListeners() {
         document.addEventListener('keydown', function(e) {
             if (modalContainer.classList.contains('show')) {
@@ -319,12 +317,12 @@ const modalHandler = (function() {
     }
 
     return {
-        addInitialEventListeners:addInitialEventListeners,
-        updateDetails:updateDetails,
-        createModalContent:createModalContent,
-        swipeLeft:swipeLeft,
-        swipeRight:swipeRight,
-        setCurrentList:setCurrentList
+        addInitialEventListeners: addInitialEventListeners,
+        updateDetails: updateDetails,
+        createModalContent: createModalContent,
+        swipeLeft: swipeLeft,
+        swipeRight: swipeRight,
+        setCurrentList: setCurrentList
     };
 })();
 

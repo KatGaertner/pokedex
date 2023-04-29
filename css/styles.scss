@@ -70,40 +70,34 @@ h2 {
 .pokemon-list__item {
     height: 3.5em;
     border: none;
+
+    &:hover,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled).active:focus {
+        background-color: $background-color;
+    }
 }
 
 // Grid fallback
 #pokemon-list li {
-        min-width: 12em;
-        float: left;
-        margin: calc($universal-margin * 0.5);
+    min-width: 12em;
+    float: left;
+    margin: calc($universal-margin * 0.5);
 }
 
 @supports (display: grid) {
-    // #pokemon-list {
-    //     display: grid;
-    //     grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
-    //     grid-gap: $universal-margin;
-    //     li  {
-    //     min-width: 100%;
-    //     float: none;
-    //     margin: 0;
-    //     }
-    // }
-}
+    #pokemon-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+        grid-gap: $universal-margin;
 
-.pokemon-list__item {
-    &:hover,
-    // &:focus,
-    // &:active
-    // &:focus-visible
-    // &:checked,
-    &:not(:disabled):not(.disabled):active,
-    &:not(:disabled):not(.disabled).active,
-    &:not(:disabled):not(.disabled):active:focus,
-    &:not(:disabled):not(.disabled).active:focus
-    {
-        background-color: $background-color;
+        li {
+            min-width: 100%;
+            float: none;
+            margin: 0;
+        }
     }
 }
 
@@ -123,7 +117,7 @@ h2 {
     border: none;
 
     .row {
-        margin:0;
+        margin: 0;
     }
 }
 
@@ -142,7 +136,9 @@ h2 {
     @include gradient-border()
 }
 
-.modal-header, .modal-body, .modal-footer {
+.modal-header,
+.modal-body,
+.modal-footer {
     border: none;
     padding: 0;
 }
@@ -177,6 +173,7 @@ h2 {
     padding: 0;
 }
 
-#pkmn-name, #modal-loading-message {
+#pkmn-name,
+#modal-loading-message {
     display: inline-block;
 }
