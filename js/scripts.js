@@ -138,7 +138,9 @@ const modalHandler = (function() {
 
     function updateDetails(pokemon) {
         removeData();
-        document.getElementById('pkmn-name').innerText = pokemon.name;
+        if (document.getElementById('pkmn-name')) {
+            document.getElementById('pkmn-name').innerText = pokemon.name;
+        }
         showLoadingMessage();
         if (!pokemon.height) {
             pokemonRepo.loadDetails(pokemon)
@@ -166,56 +168,6 @@ const modalHandler = (function() {
         return Math.floor(Math.random() * pokemon.flavorText.length);
     }
 
-    function createModalContent() {
-        let modalDialog = `
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="row align-items-center">
-            <div class="col-12 col-md-8 offset-md-1 order-md-2" id="pkmn-modal">
-              <div class="modal-header">
-                <div class="modal-title">
-                  <div>
-                    <h2 id="pkmn-name" class="pkmn-data"></h2>
-                    <div id="modal-loading-message" class="spinner-border ml-3" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                    <p id="pkmn-id" class="modal-id pkmn-data"></p>
-                  </div>
-                </div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="modal-flex">
-                  <p>
-                    <span id="pkmn-height" class="pkmn-data"></span><br>
-                    <span id="pkmn-types" class="pkmn-data"></span>
-                  </p>
-                  <img src="img/empty.png" id="pkmn-img" title="Pokemon sprite">
-                </div>
-                <p id="pkmn-text" class="pkmn-data"></p>
-              </div>
-            </div>
-            <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button"
-              onclick="modalHandler.swipeLeft()" aria-label="previous Pokemon">
-              <span aria-hidden="true">
-                <img src="img/chevron-right.svg" class="icon turn180">
-              </span>
-            </button>
-            <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3"
-              type="button" onclick="modalHandler.swipeRight()" aria-label="next Pokemon">
-              <span aria-hidden="true">
-              <img src="img/chevron-right.svg" class="icon">
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>`;
-
-        $('#modal-container').append(modalDialog);
-    }
-
     function updateModalContent(pokemon) {
         listIndex = currentList.indexOf(pokemon);
 
@@ -223,13 +175,18 @@ const modalHandler = (function() {
         let imgsrc = loadImage(pokemon);
         let flavorNr = getFlavorNr(pokemon);
 
-        document.getElementById('pkmn-name').innerText = pokemon.name;
-        document.getElementById('pkmn-id').innerText = `#${pokemon.id}`;
-        document.getElementById('pkmn-height').innerText = `Height: ${pokemon.height}`;
-        document.getElementById('pkmn-types').innerText = `Types: ${types}`;
-        document.getElementById('pkmn-img').src = imgsrc;
-        document.getElementById('pkmn-text').innerText = pokemon.flavorText[flavorNr];
+        const container = document.getElementById('modal-container');
+        container.innerHTML = '';
 
+        const template = document.getElementById('my-template');
+        let modalClone = template.content.cloneNode(true);
+        modalClone.getElementById('pkmn-name').textContent = pokemon.name;
+        modalClone.getElementById('pkmn-id').textContent = `#${pokemon.id}`;
+        modalClone.getElementById('pkmn-height').textContent = `Height: ${pokemon.height}`;
+        modalClone.getElementById('pkmn-types').textContent = `Types: ${types}`;
+        modalClone.getElementById('pkmn-img').src = imgsrc;
+        modalClone.getElementById('pkmn-text').textContent = pokemon.flavorText[flavorNr];
+        container.append(modalClone);
         makeColorBorder(pokemon);
     }
 
@@ -272,7 +229,9 @@ const modalHandler = (function() {
         $('.pkmn-data').each((nr, el) => {
             el.innerText = '\u00a0';
         });
-        document.getElementById('pkmn-img').src = 'img/empty.png';
+        if (document.getElementById('pkmn-img')) {
+            document.getElementById('pkmn-img').src = 'img/empty.png';
+        }
     }
 
     function swipeLeft() {
@@ -302,7 +261,9 @@ const modalHandler = (function() {
 
     function showLoadingMessage() {
         let elem = document.getElementById('modal-loading-message');
-        elem.classList.remove('hidden');
+        if (elem) {
+            elem.classList.remove('hidden');
+        }
     }
 
     // event listeners
@@ -324,7 +285,6 @@ const modalHandler = (function() {
     return {
         addInitialEventListeners,
         updateDetails,
-        createModalContent,
         swipeLeft,
         swipeRight,
         setCurrentList
@@ -336,5 +296,4 @@ pokemonRepo.loadList()
     .then(() => {
         modalHandler.addInitialEventListeners();
         pokemonRepo.display(pokemonRepo.getAll());
-        modalHandler.createModalContent();
     });
