@@ -200,12 +200,12 @@ const modalHandler = (function() {
         let types = pokemon.types.join(', ');
         let imgsrc = loadImage(pokemon);
         let flavorNr = getFlavorNr(pokemon);
-        src.getElementById('pkmn-name').textContent = pokemon.name;
-        src.getElementById('pkmn-id').textContent = `#${pokemon.id}`;
-        src.getElementById('pkmn-height').textContent = `Height: ${pokemon.height}`;
-        src.getElementById('pkmn-types').textContent = `Types: ${types}`;
+        src.getElementById('pkmn-name').innerText = pokemon.name;
+        src.getElementById('pkmn-id').innerText = ['#', pokemon.id].join('');
+        src.getElementById('pkmn-height').innerText = ['Height: ', pokemon.height].join('');
+        src.getElementById('pkmn-types').innerText = ['Types: ', types].join('');
         src.getElementById('pkmn-img').src = imgsrc;
-        src.getElementById('pkmn-text').textContent = pokemon.flavorText[flavorNr];
+        src.getElementById('pkmn-text').innerText = pokemon.flavorText[flavorNr];
     }
 
     function updateModalContent(pokemon) {
