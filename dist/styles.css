@@ -1,0 +1,169 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+@font-face {
+    font-family: "Rubik";
+    src: url("../fonts/rubik-latin-400-normal.woff2") format("woff2"), url("../fonts/rubik-latin-400-normal.woff") format("woff"), url("../fonts/rubik-latin-400-normal.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Rubik";
+    src: url("../fonts/rubik-latin-700-normal.woff2") format("woff2"), url("../fonts/rubik-latin-700-normal.woff") format("woff"), url("../fonts/rubik-latin-700-normal.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  body {
+    background-color: #eeeeee;
+    font-family: "Rubik", sans-serif;
+  }
+  
+  .icon {
+    height: 2rem;
+  }
+  
+  .turn180 {
+    -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  
+  .h1 {
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.1rem;
+  }
+  
+  h2 {
+    font-weight: 700;
+  }
+  
+  #loading-message {
+    font-weight: 700;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  #pokemon-list {
+    margin-top: 0.4rem;
+  }
+  
+  .pokemon-list__item {
+    height: 3.5em;
+    border: none;
+  }
+  .pokemon-list__item:hover, .pokemon-list__item:not(:disabled):not(.disabled):active, .pokemon-list__item:not(:disabled):not(.disabled).active, .pokemon-list__item:not(:disabled):not(.disabled):active:focus, .pokemon-list__item:not(:disabled):not(.disabled).active:focus {
+    background-color: #eeeeee;
+  }
+  
+  #pokemon-list li {
+    min-width: 12em;
+    float: left;
+    margin: 0.2rem;
+  }
+  
+  @supports (display: grid) {
+    #pokemon-list {
+      display: -ms-grid;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+      grid-gap: 0.4rem;
+    }
+    #pokemon-list li {
+      min-width: 100%;
+      float: none;
+      margin: 0;
+    }
+  }
+  .modal {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: url("/media/blur.svg#blur");
+    backdrop-filter: blur(2px);
+  }
+  
+  .modal-dialog {
+    border-radius: 0.4rem;
+    padding: 0 0.4rem;
+  }
+  
+  .modal-content {
+    background: none;
+    border: none;
+  }
+  .modal-content .row {
+    margin: 0;
+  }
+  
+  #pkmn-modal {
+    background: #eeeeee;
+    padding: 1rem;
+    border: 0.5rem solid transparent;
+    border-radius: 0.8rem;
+  }
+  #pkmn-modal h2 {
+    margin: 0;
+  }
+  #pkmn-modal p {
+    margin: 0;
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    border: none;
+    padding: 0;
+  }
+  
+  .modal-footer {
+    margin-top: 1em;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  
+  .modal-id {
+    color: #666;
+  }
+  
+  .modal-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    min-height: 96px;
+  }
+  
+  #pkmn-text {
+    font-size: 0.9rem;
+    min-height: 6.75rem;
+  }
+  
+  .close {
+    font-size: 200%;
+  }
+  
+  .modalButton {
+    padding: 0;
+  }
+  
+  #pkmn-name,
+  #modal-loading-message {
+    display: inline-block;
+  }
