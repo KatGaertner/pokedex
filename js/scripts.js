@@ -128,9 +128,9 @@ const pokemonRepo = (function() {
     function cleanDisplay() {
         let list = document.getElementById('pokemon-list');
         let elems = document.querySelectorAll('#pokemon-list li');
-        elems.forEach(function(el) {
-            list.removeChild(el);
-        });
+        for (let i = 0; i < elems.length; i++) {
+            list.removeChild(elems[i]);
+        }
     }
 
     function hideLoadingMessage() {
