@@ -44,9 +44,6 @@ h2 {
 }
 
 #pokemon-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
-  grid-gap: 0.4rem;
   margin-top: 0.4rem;
 }
 
@@ -54,6 +51,13 @@ h2 {
   height: 3.5em;
   border: none;
 }
+
+#pokemon-list li {
+  min-width: 12em;
+  float: left;
+  margin: 0.2rem;
+}
+
 .pokemon-list__item:hover, .pokemon-list__item:not(:disabled):not(.disabled):active, .pokemon-list__item:not(:disabled):not(.disabled).active, .pokemon-list__item:not(:disabled):not(.disabled):active:focus, .pokemon-list__item:not(:disabled):not(.disabled).active:focus {
   background-color: #eeeeee;
 }
