@@ -123,4 +123,8 @@ h2 {
 
 .modalButton {
   padding: 0;
+}
+
+#pkmn-name, #modal-loading-message {
+  display: inline-block;
 }/*# sourceMappingURL=styles.css.map */

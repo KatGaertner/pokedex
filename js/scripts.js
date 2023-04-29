@@ -41,30 +41,24 @@ const pokemonRepo = (function() {
     }
 
     function loadDetails(pokemon) {
-        showLoadingMessage();
         return fetch(pokemon.detailsUrl)
             .then((response) => response.json())
             .then((data) => {
                 parseDetails(data, pokemon);
-                // hideLoadingMessage();
             })
             .catch((error) => {
                 console.error(error);
-                hideLoadingMessage();
             });
     }
 
     function loadFlavorText(pokemon) {
-        showLoadingMessage();
         return fetch(pokemon.speciesUrl)
             .then((response) => response.json())
             .then((data) => {
                 parseFlavorText(data, pokemon);
-                hideLoadingMessage();
             })
             .catch((error) => {
                 console.error(error);
-                hideLoadingMessage();
             });
     }
 
@@ -130,8 +124,6 @@ const pokemonRepo = (function() {
         getAll,
         display,
         loadList,
-        showLoadingMessage,
-        hideLoadingMessage,
         loadDetails,
         searchPokemon,
         loadFlavorText
@@ -147,13 +139,17 @@ const modalHandler = (function() {
     function updateDetails(pokemon) {
         removeData();
         document.getElementById('pkmn-name').innerText = pokemon.name;
-
+        showLoadingMessage();
         if (!pokemon.height) {
             pokemonRepo.loadDetails(pokemon)
                 .then(() => pokemonRepo.loadFlavorText(pokemon))
-                .then(() => updateModalContent(pokemon));
+                .then(() => {
+                    updateModalContent(pokemon);
+                    hideLoadingMessage();
+                });
         } else {
             updateModalContent(pokemon);
+            hideLoadingMessage();
         }
     }
 
@@ -180,6 +176,9 @@ const modalHandler = (function() {
                 <div class="modal-title">
                   <div>
                     <h2 id="pkmn-name" class="pkmn-data"></h2>
+                    <div id="modal-loading-message" class="spinner-border ml-3" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                     <p id="pkmn-id" class="modal-id pkmn-data"></p>
                   </div>
                 </div>
@@ -294,6 +293,16 @@ const modalHandler = (function() {
 
     function setCurrentList(list) {
         currentList = list;
+    }
+
+    function hideLoadingMessage() {
+        let elem = document.getElementById('modal-loading-message');
+        elem.classList.add('hidden');
+    }
+
+    function showLoadingMessage() {
+        let elem = document.getElementById('modal-loading-message');
+        elem.classList.remove('hidden');
     }
 
     // event listeners
