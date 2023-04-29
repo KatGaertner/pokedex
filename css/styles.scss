@@ -64,16 +64,35 @@ h2 {
 }
 
 #pokemon-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
-    grid-gap: $universal-margin;
     margin-top: $universal-margin;
 }
 
 .pokemon-list__item {
     height: 3.5em;
     border: none;
+}
 
+// Grid fallback
+#pokemon-list li {
+        min-width: 12em;
+        float: left;
+        margin: calc($universal-margin * 0.5);
+}
+
+@supports (display: grid) {
+    // #pokemon-list {
+    //     display: grid;
+    //     grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+    //     grid-gap: $universal-margin;
+    //     li  {
+    //     min-width: 100%;
+    //     float: none;
+    //     margin: 0;
+    //     }
+    // }
+}
+
+.pokemon-list__item {
     &:hover,
     // &:focus,
     // &:active
