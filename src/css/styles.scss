@@ -103,6 +103,7 @@ h2 {
 
 .modal {
     -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: url("/media/blur.svg#blur");
     backdrop-filter: blur(2px);
 }
 
