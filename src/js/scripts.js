@@ -31,6 +31,7 @@ const pokemonRepo = (function() {
             return x.flavor_text;
         });
         pokemon.flavorText = data2.map(function(el) {
+            // remove all whitespace characters
             return el.replace(/\s/g, ' ');
         });
     }
@@ -92,11 +93,13 @@ const pokemonRepo = (function() {
 
     function searchPokemon() {
         let searchBar = document.getElementById('searchbar');
-        cleanDisplay();
         let val = searchBar.value;
         let list = search('name', val);
-        display(list);
-        modalHandler.setCurrentList(list);
+        if (list) {
+            cleanDisplay();
+            display(list);
+            modalHandler.setCurrentList(list);
+        }
     }
 
     function addListItem(pokemon) {
@@ -165,6 +168,7 @@ const modalHandler = (function() {
             document.getElementById('pkmn-name').innerText = pokemon.name;
         }
         showLoadingMessage();
+        // if there is no pokemon.height, all details needs to be fetched
         if (!pokemon.height) {
             pokemonRepo.loadDetails(pokemon).then(function() {
                 return pokemonRepo.loadFlavorText(pokemon);
@@ -191,8 +195,9 @@ const modalHandler = (function() {
         return Math.floor(Math.random() * pokemon.flavorText.length);
     }
 
+    // this is needed only for very old browsers
     function createModalContent() {
-        let modalDialog = '<div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><div class="row align-items-center"><div class="col-12 col-md-8 offset-md-1 order-md-2" id="pkmn-modal"><div class="modal-header"><div class="modal-title"><div><h2 id="pkmn-name" class="pkmn-data"></h2><div id="modal-loading-message" class="spinner-border ml-3" role="status"><span class="sr-only">Loading...</span></div><p id="pkmn-id" class="modal-id pkmn-data"></p></div></div><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><div class="modal-flex"><p><span id="pkmn-height" class="pkmn-data"></span><br><span id="pkmn-types" class="pkmn-data"></span></p><img src="img/empty.png" id="pkmn-img" title="Pokemon sprite"></div><p id="pkmn-text" class="pkmn-data"></p></div></div><button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button" onclick="modalHandler.swipeLeft()" aria-label="previous Pokemon"><span aria-hidden="true"><img src="img/chevron-right.svg" class="icon turn180"></span></button><button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3" type="button" onclick="modalHandler.swipeRight()" aria-label="next Pokemon"><span aria-hidden="true"><img src="img/chevron-right.svg" class="icon"></span></button></div></div></div>';
+        let modalDialog = '<div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><div class="row align-items-center"><div class="col-12 col-md-8 offset-md-1 order-md-2" id="pkmn-modal"><div class="modal-header"><div class="modal-title"><div><h2 id="pkmn-name" class="pkmn-data"></h2><div id="modal-loading-message" class="spinner-border ml-3" role="status"><span class="sr-only">Loading...</span></div><p id="pkmn-id" class="modal-id pkmn-data"></p></div></div><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><div class="modal-flex"><p><span id="pkmn-height" class="pkmn-data"></span><br><span id="pkmn-types" class="pkmn-data"></span></p><img src="dist/img/empty.png" id="pkmn-img" title="Pokemon sprite"></div><p id="pkmn-text" class="pkmn-data"></p></div></div><button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button" onclick="modalHandler.swipeLeft()" aria-label="previous Pokemon"><span aria-hidden="true"><img src="img/chevron-right.svg" class="icon turn180"></span></button><button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3" type="button" onclick="modalHandler.swipeRight()" aria-label="next Pokemon"><span aria-hidden="true"><img src="img/chevron-right.svg" class="icon"></span></button></div></div></div>';
         $('#modal-container').append(modalDialog);
     }
 
@@ -210,13 +215,12 @@ const modalHandler = (function() {
 
     function updateModalContent(pokemon) {
         listIndex = currentList.indexOf(pokemon);
-        const container = document.getElementById('modal-container');
-        container.innerHTML = '';
+        modalContainer.innerHTML = '';
         if ('content' in document.createElement('template')) {
             const template = document.getElementById('my-template');
             let modalClone = template.content.cloneNode(true);
             updateModalContentFields(modalClone, pokemon);
-            container.append(modalClone);
+            modalContainer.append(modalClone);
         } else { // fallback for old Browsers
             createModalContent();
             updateModalContentFields(document, pokemon);
@@ -249,6 +253,7 @@ const modalHandler = (function() {
         let colors = pokemon.types.map(function(x) {
             return colormap[x];
         });
+        // for pokemon with only 1 type:
         if (colors.length === 1) {
             colors[1] = colors[0];
         }
@@ -266,7 +271,7 @@ const modalHandler = (function() {
             el.innerText = '\u00a0'; // non-breaking whitespace
         });
         if (document.getElementById('pkmn-img')) {
-            document.getElementById('pkmn-img').src = 'img/empty.png';
+            document.getElementById('pkmn-img').src = 'dist/img/empty.png';
         }
     }
 
