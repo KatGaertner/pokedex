@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="dist/styles.css">
+  <link rel="stylesheet" type="text/css" href="dist/css/styles.css">
 
   <title>Pokedex</title>
 </head>
@@ -22,7 +22,7 @@
       </div>
       <button class="navbar-toggler btn btn-light" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <img src="img/menu.svg" class="icon">
+        <img src="dist/img/menu.svg" class="icon">
       </button>
       <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
         <form class="form-inline float-right" role="search">
@@ -30,7 +30,7 @@
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="searchbar" oninput="pokemonRepo.searchPokemon()">
           </span>
           <button class="btn btn-light" type="button" id="searchbutton" onclick="pokemonRepo.searchPokemon()">
-            <img src="img/search.svg" class="icon">
+            <img src="dist/img/search.svg" class="icon">
           </button>
         </form>
       </div>
@@ -74,7 +74,7 @@
                 <span id="pkmn-height" class="pkmn-data"></span><br>
                 <span id="pkmn-types" class="pkmn-data"></span>
               </p>
-              <img src="img/empty.png" id="pkmn-img" title="Pokemon sprite">
+              <img src="dist/img/empty.png" id="pkmn-img" title="Pokemon sprite">
             </div>
             <p id="pkmn-text" class="pkmn-data"></p>
           </div>
@@ -82,13 +82,13 @@
         <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-1 pt-3 pb-3" type="button"
           onclick="modalHandler.swipeLeft()" aria-label="previous Pokemon">
           <span aria-hidden="true">
-            <img src="img/chevron-right.svg" class="icon turn180">
+            <img src="dist/img/chevron-right.svg" class="icon turn180">
           </span>
         </button>
         <button class="btn btn-light modalButton mt-2 col-3 col-md-1 order-md-3 offset-6 offset-md-1 pt-3 pb-3"
           type="button" onclick="modalHandler.swipeRight()" aria-label="next Pokemon">
           <span aria-hidden="true">
-          <img src="img/chevron-right.svg" class="icon">
+          <img src="dist/img/chevron-right.svg" class="icon">
           </span>
         </button>
       </div>
@@ -101,9 +101,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-  <script src="dist/promise-polyfill.min.js"></script>
-  <script src="dist/fetch.umd.js"></script>
-  <script src="dist/scripts.js"></script>
+  <script src="dist/js/promise-polyfill.min.js"></script>
+  <script src="dist/js/fetch.umd.js"></script>
+  <script src="dist/js/scripts.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,7 @@
 notes.txt
-
-css/styles.css.map
 todo.txt
+src/css/styles.css.map
+src/img/
+src/fonts/
+src/js/fetch.umd.js
+src/js/promise-polyfill.min.js
