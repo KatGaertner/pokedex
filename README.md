@@ -16,8 +16,8 @@ The project is created with:
 
 # Screenshots
 
-<img src="screenshots/desktop.png" alt="Desktop interface" height="300px">
-<img src="screenshots/mobile.jpg" alt="Mobile interface" height="300px">
+<img src="https://raw.githubusercontent.com/KatGaertner/pokedex/task11/screenshots/desktop.jpg" alt="Desktop interface" height="300px">
+<img src="https://raw.githubusercontent.com/KatGaertner/pokedex/task11/screenshots/mobile.jpg" alt="Mobile interface" height="300px">
 
 # Project status
 
