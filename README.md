@@ -19,6 +19,7 @@ The project is created with:
 <img src="https://raw.githubusercontent.com/KatGaertner/pokedex/task11/screenshots/desktop.jpg" alt="Desktop interface" height="300px">
 <img src="https://raw.githubusercontent.com/KatGaertner/pokedex/task11/screenshots/mobile.jpg" alt="Mobile interface" height="300px">
 
+<a name="webpage-cut"></a>
 # Project status
 
 This project was made within the scope of a Web Development course as a portfolio project. As such, it is finished for now.
