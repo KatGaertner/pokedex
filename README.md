@@ -6,7 +6,7 @@ Visit on: <https://katgaertner.github.io/pokedex/>
 
 The app offers a responsive layout, keyboard accessibility, and lets users search for Pokemon by name. It also uses colored borders to represent a Pokemon's types and includes a feature to randomly find shiny Pokemon sprites for added excitement. The app is designed to be compatible with all modern browsers, as well as Internet Explorer 11.
 
-# Technologies
+## Technologies
 
 The project is created with:
 - HTML, SCSS/CSS, JavaScript
@@ -14,13 +14,13 @@ The project is created with:
 - jQuery 3.3.1
 - Bootstrap 4.3.1
 
-# Screenshots
+## Screenshots
 
 <img src="https://raw.githubusercontent.com/KatGaertner/pokedex/task11/screenshots/desktop.jpg" alt="Desktop interface" height="300px">
 <img src="https://raw.githubusercontent.com/KatGaertner/pokedex/task11/screenshots/mobile.jpg" alt="Mobile interface" height="300px">
 
 <a name="webpage-cut"></a>
-# Project status
+## Project status
 
 This project was made within the scope of a Web Development course as a portfolio project. As such, it is finished for now.
 However I really like this project and in the future I would like to add some features I was missing, like:
